@@ -7,14 +7,23 @@ import listEndpoints from 'express-list-endpoints'
 // PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
+const expressListEndpoints = require("express-list-endpoints");
+
+
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
 
+
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.send("Hello World!");
+  const endpoints = listEndpoints(app);
+  res.json({
+    message: "Welcome to Happy Thoughts API",
+    endpoints: endpoints
+  });
 });
 
 // Start the server
