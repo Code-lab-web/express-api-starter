@@ -1,12 +1,11 @@
 import express from "express";
 import cors from "cors";
-<<<<<<< HEAD
-import bodyParser from 'body-parser'
-import data from ./data.json'
-import console.log(data.length)
-=======
+
+import data from "./data.json";
+
+
 import listEndpoints from 'express-list-endpoints'
->>>>>>> cfd944b974ef609e3516670a8fed2311bc32d6d8
+
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
@@ -24,18 +23,16 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello World!");
-<<<<<<< HEAD
-
-=======
+  res.send("Hello World!")
   const endpoints = listEndpoints(app);
   res.json({
     message: "Welcome to Happy Thoughts API",
     endpoints: endpoints
   });
->>>>>>> cfd944b974ef609e3516670a8fed2311bc32d6d8
 });
-app.get
+app.get("/data", (req, res) => {
+  res.json(data);
+});
 
 // Start the server
 app.listen(port, () => {
