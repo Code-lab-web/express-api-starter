@@ -32,6 +32,14 @@ app.get("/", (req, res) => {
 });
 app.get("/data", (req, res) => {
   res.json(data);
+  app.get("data/:id") => (req, res) =>{}
+  console.log('req.params.id', req.params.id)
+  console.log('data.id') , data.id)
+const data = data.find((data) => data.id ===req.params.id)
+
+res.json(data)
+)
+  }
 });
 
 // Start the server
