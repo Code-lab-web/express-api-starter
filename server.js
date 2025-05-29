@@ -123,3 +123,11 @@ app.get("/endpoints", (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+app.get("./data") , (req, res) =>{
+  const {color} = req.query
+  const filteredData
+  
+  console.log ('queries:' ,req.query)
+  res.json(data)
+}
