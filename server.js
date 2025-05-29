@@ -36,6 +36,7 @@ app.get("/data", (req, res) => {
   res.json(data);
 });
 
+<<<<<<< HEAD
 app.get("/data/:id", (req, res) => {
   console.log('req.params.id', req.params.id);
   const item = data.find((item) => item.id === req.params.id);
@@ -43,6 +44,8 @@ app.get("/data/:id", (req, res) => {
     res.json(item);
   } else {
     res.status(404).json({ error: "Item not found" });
+=======
+>>>>>>> 4265103 (git commit -m "Code-lab-web")
   }
 });
 const endpointList = expressListEndpoints(app);
