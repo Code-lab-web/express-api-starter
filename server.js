@@ -36,6 +36,8 @@ app.get("/data", (req, res) => {
   console.log('req.params.id', req.params.id)
   console.log('data.id') , data.id)
 const data = data.find((data) => data.id ===req.params.id)
+if (!data)
+  return
 
 res.json(data)
 )
