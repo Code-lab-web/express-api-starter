@@ -90,6 +90,9 @@ app.get("js/script.js", (req, res) => {
                     app.get("/html/favicon.ico", (req, res) => {
                       res.sendFile(__dirname + "/html/favicon.ico")
                       app.get("/html/apple-touch-icon.png", (req, res) =>
+                        app.get("/thought/data.json"), (req, res) => {
+                          res.sendFile(__dirname + ."/thought/data.json")
+                        }
                       })
                     })
                   })
@@ -109,7 +112,29 @@ app.get("/endpoints", (req, res) => {
     endpoints: endpoints;
   });
 }
+app.get("/data", (req, res) => {
 
+  const { color, symbol } = req.query
+
+  let filteredThoughts = happythoughtsData
+
+  if (color) {
+    filteredThoughts = filteredThoughts.filter(thought => thought.color.toLowerCase() === color.toLowerCase())
+  }
+
+  if (symbol) {
+    filteredFlowers = filteredThoughts.filter(thought =>
+      thought.symbolism.some(word => word.toLowerCase() === symbol.toLowerCase())
+    )
+  }
+
+  res.json(filteredthought)
+})
+
+// endpoint for gettin one thought
+app.get("/thought/:id", (req, res) => {
+  // be aware! The id that comes from the param is of type string. and in our json it is of type number. You have to turn them into the same type before you can compare them. trun a string to a number by adding + 👇
+  const thought = thoughtData.find((thought) => thought.id === +req.params.id)
   })
 })
 })
