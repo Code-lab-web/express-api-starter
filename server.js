@@ -9,12 +9,9 @@ import listEndpoints from 'express-list-endpoints'
 // when starting the server. Example command to overwrite PORT env variable value:
 // PORT=9000 npm start
 
-const express = require("express");
-const expressListEndpoints = require("express-list-endpoints");
-
 const port = process.env.PORT || 8080;
 const app = express();
-const expressListEndpoints = require("express-list-endpoints");
+// Removed redundant import for express-list-endpoints
 
 
 
@@ -25,13 +22,15 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello World!")
+  res.send("Hello World!");
   const endpoints = listEndpoints(app);
   res.json({
     message: "Welcome to Happy Thoughts API",
-    endpoints: endpoints
+    endpoints: endpoints,
   });
 });
+
+// Route to fetch all data
 app.get("/data", (req, res) => {
   res.json(data);
 });
@@ -69,6 +68,7 @@ app.get("css/style.css", (req, res) => {
 });
 app.get("js/script.js", (req, res) => {
   res.sendFile(__dirname + "/js/script.js");
+});
 app.get("/html/index.html", (req, res) => {
   res.sendFile(__dirname + "/html/index.html");
 });
@@ -106,7 +106,7 @@ app.get("/endpoints", (req, res) => {
   const endpoints = expressListEndpoints(app);
   res.json({
     message: "List of all endpoints",
-    endpoints: endpoints;
+    endpoints: endpoints,
   });
 }
 
