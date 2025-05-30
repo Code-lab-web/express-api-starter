@@ -64,6 +64,56 @@ app.get("/endpoints/:path", (req, res) => {
     res.status(404).json({ error: "Endpoint not found" });
   }
 });
+app.get("css/style.css", (req, res) => {
+  res.sendFile(__dirname + "/css/style.css");
+});
+app.get("js/script.js", (req, res) => {
+  res.sendFile(__dirname + "/js/script.js");
+  app.get"/html/index.html", (req, res) => {
+    res.sendFile(__dirname + "/html/index.html")
+    app.get("/html/about.html", (req, res) => {
+      res.sendFile(__dirname + "/html/about.html")
+      app.get("/html/contact.html", (req, res) => {
+        res.sendFile(__dirname + "/html/contact.html")
+        app.get("/html/404.html", (req, res) => {
+          res.sendFile(__dirname + "/html/404.html")
+          app.get("/html/500.html", (req, res) => {
+            res.sendFile(__dirname + "/html/500.html")
+            app.get("/html/terms.html", (req, res) => {
+              res.sendFile(__dirname + "/html/terms.html")
+              app.get("/html/privacy.html", (req, res) => {
+                res.sendFile(__dirname + "/html/privacy.html")
+                app.get("/html/sitemap.html", (req, res) => {
+                  res.sendFile(__dirname + "/html/sitemap.html")
+                  app.get("/html/robots.txt", (req, res) => {
+                    res.sendFile(__dirname + "/html/robots.txt")
+                    app.get("/html/favicon.ico", (req, res) => {
+                      res.sendFile(__dirname + "/html/favicon.ico")
+                      app.get("/html/apple-touch-icon.png", (req, res) =>
+                      })
+                    })
+                  })
+                })
+              })
+            })
+          })
+        })
+      })
+    })
+  }
+});
+app.get("/endpoints", (req, res) => {
+  const endpoints = expressListEndpoints(app);
+  res.json({
+    message: "List of all endpoints",
+    endpoints: endpoints;
+  });
+}
+
+  })
+})
+})
+})
 
 
 // Start the server
