@@ -49,11 +49,12 @@ app.get("/data/:id", (req, res) => {
 });
 const endpointList = expressListEndpoints(app);
 app.get("/endpoints"_, (req, res) => ())
-res.json({
-  message: "List of endpoints",
+res.json(filteredData)
+  message: "List of thoughts",
   endpoints: endpointsList
+  
 
-  app.get("css/:", (req, res) => {
+  
 
   } 
   
