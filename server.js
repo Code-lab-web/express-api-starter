@@ -12,8 +12,6 @@ import listEndpoints from 'express-list-endpoints'
 const express = require("express");
 const expressListEndpoints = require("express-list-endpoints");
 
-let app = express();
-
 const port = process.env.PORT || 8080;
 const app = express();
 const expressListEndpoints = require("express-list-endpoints");
@@ -48,19 +46,25 @@ app.get("/data/:id", (req, res) => {
   }
 });
 const endpointList = expressListEndpoints(app);
-app.get("/endpoints"_, (req, res) => ())
-res.json(filteredData)
-  message: "List of thoughts",
-  endpoints: endpointsList
-  
+app.get("/endpoints", (req, res) => {
+  res.json({
+    message: "List of thoughts",
+    endpoints: endpointList
+  });
+});
+app.get("/endpoints/:path", (req, res) => {
+  const path = req.params.path;
+  const endpoint = endpointList.find((endpoint) => endpoint.path.includes(path));
+  if (endpoint) {
+    res.json({
+      message: `Endpoint for path ${path} found`,
+      endpoint: endpoint,
+    });
+  } else {
+    res.status(404).json({ error: "Endpoint not found" });
+  }
+});
 
-  
-
-  } 
-  
-
-
-})
 
 // Start the server
 app.listen(port, () => {
