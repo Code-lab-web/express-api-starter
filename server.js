@@ -9,12 +9,9 @@ import listEndpoints from 'express-list-endpoints'
 // when starting the server. Example command to overwrite PORT env variable value:
 // PORT=9000 npm start
 
-const express = require("express");
-const expressListEndpoints = require("express-list-endpoints");
-
 const port = process.env.PORT || 8080;
 const app = express();
-const expressListEndpoints = require("express-list-endpoints");
+// Removed redundant import for express-list-endpoints
 
 
 
@@ -25,13 +22,15 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello World!")
+  res.send("Hello World!");
   const endpoints = listEndpoints(app);
   res.json({
     message: "Welcome to Happy Thoughts API",
-    endpoints: endpoints
+    endpoints: endpoints,
   });
 });
+
+// Route to fetch all data
 app.get("/data", (req, res) => {
   res.json(data);
 });
@@ -72,51 +71,48 @@ app.get("css/style.css", (req, res) => {
 });
 app.get("js/script.js", (req, res) => {
   res.sendFile(__dirname + "/js/script.js");
-  app.get"/html/index.html", (req, res) => {
-    res.sendFile(__dirname + "/html/index.html")
-    app.get("/html/about.html", (req, res) => {
-      res.sendFile(__dirname + "/html/about.html")
-      app.get("/html/contact.html", (req, res) => {
-        res.sendFile(__dirname + "/html/contact.html")
-        app.get("/html/404.html", (req, res) => {
-          res.sendFile(__dirname + "/html/404.html")
-          app.get("/html/500.html", (req, res) => {
-            res.sendFile(__dirname + "/html/500.html")
-            app.get("/html/terms.html", (req, res) => {
-              res.sendFile(__dirname + "/html/terms.html")
-              app.get("/html/privacy.html", (req, res) => {
-                res.sendFile(__dirname + "/html/privacy.html")
-                app.get("/html/sitemap.html", (req, res) => {
-                  res.sendFile(__dirname + "/html/sitemap.html")
-                  app.get("/html/robots.txt", (req, res) => {
-                    res.sendFile(__dirname + "/html/robots.txt")
-                    app.get("/html/favicon.ico", (req, res) => {
-                      res.sendFile(__dirname + "/html/favicon.ico")
-                      app.get("/html/apple-touch-icon.png", (req, res) =>
-                      })
-                    })
-                  })
-                })
-              })
-            })
-          })
-        })
-      })
-    })
-  }
+});
+app.get("/html/index.html", (req, res) => {
+  res.sendFile(__dirname + "/html/index.html");
+});
+app.get("/html/about.html", (req, res) => {
+  res.sendFile(__dirname + "/html/about.html");
+});
+app.get("/html/contact.html", (req, res) => {
+  res.sendFile(__dirname + "/html/contact.html");
+});
+app.get("/html/404.html", (req, res) => {
+  res.sendFile(__dirname + "/html/404.html");
+});
+app.get("/html/500.html", (req, res) => {
+  res.sendFile(__dirname + "/html/500.html");
+});
+app.get("/html/terms.html", (req, res) => {
+  res.sendFile(__dirname + "/html/terms.html");
+});
+app.get("/html/privacy.html", (req, res) => {
+  res.sendFile(__dirname + "/html/privacy.html");
+});
+app.get("/html/sitemap.html", (req, res) => {
+  res.sendFile(__dirname + "/html/sitemap.html");
+});
+app.get("/html/robots.txt", (req, res) => {
+  res.sendFile(__dirname + "/html/robots.txt");
+});
+app.get("/html/favicon.ico", (req, res) => {
+  res.sendFile(__dirname + "/html/favicon.ico");
+});
+app.get("/html/apple-touch-icon.png", (req, res) => {
+  res.sendFile(__dirname + "/html/apple-touch-icon.png");
 });
 app.get("/endpoints", (req, res) => {
   const endpoints = expressListEndpoints(app);
   res.json({
     message: "List of all endpoints",
-    endpoints: endpoints;
+    endpoints: endpoints,
   });
 }
 
-  })
-})
-})
-})
 
 
 // Start the server
