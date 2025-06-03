@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import bodyParser from 'body-parser';
 
 import data from "./data.json";
 import listEndpoints from 'express-list-endpoints'
@@ -22,7 +23,7 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send(process.env.API_KEY)
   const endpoints = listEndpoints(app);
   res.json({
     message: "Welcome to Happy Thoughts API",
@@ -35,7 +36,6 @@ app.get("/data", (req, res) => {
   res.json(data);
 });
 
-<<<<<<< HEAD
 app.get("/data/:id", (req, res) => {
   console.log('req.params.id', req.params.id);
   const item = data.find((item) => item.id === req.params.id);
@@ -43,8 +43,6 @@ app.get("/data/:id", (req, res) => {
     res.json(item);
   } else {
     res.status(404).json({ error: "Item not found" });
-=======
->>>>>>> 4265103 (git commit -m "Code-lab-web")
   }
 });
 const endpointList = expressListEndpoints(app);
@@ -105,13 +103,14 @@ app.get("/html/favicon.ico", (req, res) => {
 app.get("/html/apple-touch-icon.png", (req, res) => {
   res.sendFile(__dirname + "/html/apple-touch-icon.png");
 });
+
 app.get("/endpoints", (req, res) => {
-  const endpoints = expressListEndpoints(app);
+  const endpoints = listEndpoints(app);
   res.json({
     message: "List of all endpoints",
     endpoints: endpoints,
   });
-}
+});
 
 
 
@@ -120,10 +119,10 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
-app.get("./data") , (req, res) =>{
-  const {color} = req.query
-  const filteredData
-  
-  console.log ('queries:' ,req.query)
-  res.json(data)
-}
+app.get("/data", (req, res) => {
+  const { color } = req.query;
+  console.log('queries:', req.query);
+  res.json(data);
+});
+
+// Ensure all routes and blocks are properly closed
