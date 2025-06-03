@@ -7,10 +7,89 @@ import listEndpoints from 'express-list-endpoints'
 
 import mongoose from "mongoose"
 
-const mongoUrl = process.env.MONGO_URL II "mongodb://localhost/thoughts"
-mongoose.connect(mongoUrl,) { useNewUrlParser: true, useUnifiedTopology: true })
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/thoughts"
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
+const thoughtSchema = new mongoose.Schema({
+  id: Number,
+  name: String,
+  scientificName: String,
+});
+
+if (process.env.RESET_DB) {
+  const seedDatabase = async () => {
+    await Thought.deleteMany({});
+    thoughtData.forEach(thought => {
+      new Thought(thought).save();
+    });
+  };
+  seedDatabase();
+}
+
+      app.get("/thoughts", async (req, res) => {
+        const { symbol } = req.query;
+        const query = {};
+      
+        if (symbol) {
+          query.symbolism = symbol;
+        }
+      
+        try {
+          const filteredThoughts = await Thought.find(query);
+      
+          if (filteredThoughts.length === 0) {
+            return res.status(404).json({
+              success: false,
+              response: [],
+              message: "No thoughts found for that query. Try another one."
+            });
+          }
+      
+          res.status(200).json({
+            success: true,
+            response: filteredThoughts,
+            message: "Success"
+          });
+        } catch (error) {
+          res.status(500).json({
+            success: false,
+            response: error,
+            message: "Failed to fetch thoughts"
+          });
+        }
+      });
+      
+      app.get("/thoughts/:id", async (req, res) => {
+        const { id } = req.params
+      
+        try {
+          const thoughts = await Flowe.findById(id)
+      
+          if (!flower) {
+            res.status(404).json({ 
+              success: false,
+              response: null,
+              message: "Thought not found"
+            })
+          }
+      
+          res.status(200).json({
+            success: true,
+            response: thought
+          })
+        } catch (error) {
+          res.status(500).json({
+            success: false,
+            response: error, 
+            message: "Thought couldn't be found"
+          })
+        }
+      })
+      
+      app.listen(port, () => {
+        console.log(`Server running on http://localhost:${port}`)
+      })
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
@@ -18,6 +97,7 @@ mongoose.connect(mongoUrl,) { useNewUrlParser: true, useUnifiedTopology: true })
 
 const port = process.env.PORT || 8080;
 const app = express();
+
 // Removed redundant import for express-list-endpoints
 
 
