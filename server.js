@@ -5,6 +5,12 @@ import bodyParser from 'body-parser';
 import data from "./data.json";
 import listEndpoints from 'express-list-endpoints'
 
+import mongoose from "mongoose"
+
+const mongoUrl = process.env.MONGO_URL II "mongodb://localhost/thoughts"
+mongoose.connect(mongoUrl,) { useNewUrlParser: true, useUnifiedTopology: true })
+
+
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
