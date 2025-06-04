@@ -24,13 +24,11 @@ if (process.env.RESET_DB) {
       new Thought(thought).save();
     });
   };
-  seedDatabase();
-}
+    seedDatabase();
+  }
 
 
-const Thought = mongose .model("Thought", thoughtSchema)
-
-)
+const Thought = mongoose.model("Thought", thoughtSchema);
 
       app.get("/thoughts", async (req, res) => {
         const { symbol } = req.query;
@@ -88,13 +86,38 @@ const Thought = mongose .model("Thought", thoughtSchema)
             success: false,
             response: error, 
             message: "Thought couldn't be found"
-          })
+          });
         }
-      })
-      
+
+      app.patch("/thoughts/:id", async (req, res) => {
+            const { id } = req.params;
+            try {
+              const updatedThought = await Thought.findByIdAndUpdate(id, req.body, { new: true });
+              if (!updatedThought) {
+                return res.status(404).json({
+                  success: false,
+                  response: null,
+                  message: "Thought not found"
+                });
+              }
+              res.status(200).json({
+                success: true,
+                response: updatedThought,
+                message: "Thought updated successfully"
+              });
+            } catch (error) {
+              res.status(500).json({
+                success: false,
+                response: error,
+                message: "Thought couldn't be updated"
+              });
+            }
+          });
+      });
+          
       app.listen(port, () => {
         console.log(`Server running on http://localhost:${port}`)
-      })
+      });
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
