@@ -9,6 +9,26 @@ import mongoose from "mongoose"
 
 import thoughtsData from "/data/thoughts.json";
 
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/thoughts";
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.Promise = Promise
+
+const Task = mongoose.model('Task', {
+  text: {
+    type: String,
+    required: true,
+    minLength: 5
+  },
+  complete: {
+    type: Boolean,
+    default: false
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
 const Person = mongoose.model('Person', {
   name: {
     type: String,
@@ -23,8 +43,7 @@ const Person = mongoose.model('Person', {
   },
 });
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/thoughts";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 
 const thoughtSchema = new mongoose.Schema({
