@@ -7,6 +7,25 @@ import listEndpoints from 'express-list-endpoints'
 
 import mongoose from "mongoose"
 
+import thoughtsData from "/data/thoughts.json";
+
+const Person = mongoose.model('Person', {
+  name: {
+    type: String,
+    required: true,
+    minLength: 2,
+    maxLength: 50
+  },
+  height:{
+    type: Number,
+    required: true,
+    min: 5
+    
+  }
+
+
+  }
+}
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/thoughts"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
