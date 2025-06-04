@@ -283,7 +283,15 @@ app.get("/endpoints", (req, res) => {
     endpoints: endpoints,
   });
 });
-
+app.get('/tasks', async (req, res) => {
+  try {
+    // Endpoint to get all tasks
+    const tasks = await Task.find().sort({createdAt: 'desc'}).limit(20).exec();
+    res.json(tasks);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch tasks", error });
+  }
+});
 
 
 // Start the server
