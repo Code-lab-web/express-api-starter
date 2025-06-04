@@ -27,6 +27,11 @@ if (process.env.RESET_DB) {
   seedDatabase();
 }
 
+
+const Thought = mongose .model("Thought", thoughtSchema)
+
+)
+
       app.get("/thoughts", async (req, res) => {
         const { symbol } = req.query;
         const query = {};
