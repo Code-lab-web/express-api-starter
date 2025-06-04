@@ -16,17 +16,14 @@ const Person = mongoose.model('Person', {
     minLength: 2,
     maxLength: 50
   },
-  height:{
+  height: {
     type: Number,
     required: true,
-    min: 5
-    
-  }
+    min: 5,
+  },
+});
 
-
-  }
-}
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/thoughts"
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/thoughts";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
@@ -152,6 +149,9 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
+
+
 
 
 // Start defining your routes here
