@@ -78,25 +78,25 @@ const Thought = mongoose.model("Thought", thoughtSchema);
           });
         }
       });
-      
+          
       app.get("/thoughts/:id", async (req, res) => {
-        const { id } = req.params
+        const { id } = req.params;
       
         try {
-          const thoughts = await Flowe.findById(id)
+          const thought = await Thought.findById(id);
       
-          if (!flower) {
-            res.status(404).json({ 
+          if (!thought) {
+            return res.status(404).json({ 
               success: false,
               response: null,
               message: "Thought not found"
-            })
+            });
           }
       
           res.status(200).json({
             success: true,
             response: thought
-          })
+          });
         } catch (error) {
           res.status(500).json({
             success: false,
@@ -104,31 +104,31 @@ const Thought = mongoose.model("Thought", thoughtSchema);
             message: "Thought couldn't be found"
           });
         }
+      });
 
       app.patch("/thoughts/:id", async (req, res) => {
-            const { id } = req.params;
-            try {
-              const updatedThought = await Thought.findByIdAndUpdate(id, req.body, { new: true });
-              if (!updatedThought) {
-                return res.status(404).json({
-                  success: false,
-                  response: null,
-                  message: "Thought not found"
-                });
-              }
-              res.status(200).json({
-                success: true,
-                response: updatedThought,
-                message: "Thought updated successfully"
-              });
-            } catch (error) {
-              res.status(500).json({
-                success: false,
-                response: error,
-                message: "Thought couldn't be updated"
-              });
-            }
+        const { id } = req.params;
+        try {
+          const updatedThought = await Thought.findByIdAndUpdate(id, req.body, { new: true });
+          if (!updatedThought) {
+            return res.status(404).json({
+              success: false,
+              response: null,
+              message: "Thought not found"
+            });
+          }
+          res.status(200).json({
+            success: true,
+            response: updatedThought,
+            message: "Thought updated successfully"
           });
+        } catch (error) {
+          res.status(500).json({
+            success: false,
+            response: error,
+            message: "Thought couldn't be updated"
+          });
+        }
       });
           
       app.listen(port, () => {
@@ -156,19 +156,32 @@ app.use(bodyParser.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send(process.env.API_KEY)
   const endpoints = listEndpoints(app);
   res.json({
     message: "Welcome to Happy Thoughts API",
     endpoints: endpoints,
   });
-  app.post('/people', async (req, res) => {
-    const person = new Person(req.body);
-    const savedPerson = await Person.save();
-    res.join(savedPerson);
-     { name, height} = req.body;
+});
+
+app.post('/people', async (req, res) => {
+  // Promises
+  new Person(req.body).save()
+  .then((person) => {
+    res.status(200).json(person);
+  })
+  .catch((err) => {
+    res.status(400).json({message: 'Could not save person', errors: err.errors});
 
   })
+  try {
+    const person = new Person(req.body);
+    const savedPerson = await person.save();
+    res.json(savedPerson);
+  } catch (err) {
+    // Bad Request
+    res.status(400).json.son({})
+    res.json({ message: 'Could not save person', errors: err.errors });
+  }
 });
 
 // Route to fetch all data
