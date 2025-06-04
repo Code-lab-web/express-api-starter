@@ -162,6 +162,13 @@ app.get("/", (req, res) => {
     message: "Welcome to Happy Thoughts API",
     endpoints: endpoints,
   });
+  app.post('/people', async (req, res) => {
+    const person = new Person(req.body);
+    const savedPerson = await Person.save();
+    res.join(savedPerson);
+     { name, height} = req.body;
+
+  })
 });
 
 // Route to fetch all data

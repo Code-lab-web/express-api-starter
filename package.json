@@ -18,6 +18,7 @@
     "express-list-endpoints": "^7.1.1",
     "middleware": "^1.0.0",
     "mongodb": "^6.16.0",
+    "newman": "^6.2.0",
     "nodemon": "^3.1.10"
   }
 }
