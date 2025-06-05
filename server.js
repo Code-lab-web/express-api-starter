@@ -27,6 +27,7 @@ const Task = mongoose.model('Task', {
     type: Date,
     default: Date.now
   }
+});
 
 const Person = mongoose.model('Person', {
   name: {
@@ -280,6 +281,17 @@ app.get('/tasks', async (req, res) => {
     res.json(tasks);
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch tasks", error });
+  }
+});
+
+app.post('/tasks', async (req, res) => {
+  const { text, complete } = req.body;
+  try {
+    const task = new Task({ text, complete });
+    const savedTask = await task.save();
+    res.status(201).json(savedTask);
+  } catch (err) {
+    res.status(400).json({ message: 'Could not save task to the Database', error: err.errors });
   }
 });
 
