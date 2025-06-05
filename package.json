@@ -12,6 +12,7 @@
     "@babel/core": "^7.17.9",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
+    "babel": "^6.23.0",
     "cors": "^2.8.5",
     "dom": "^0.0.3",
     "dotenv": "^16.5.0",
