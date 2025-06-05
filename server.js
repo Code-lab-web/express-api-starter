@@ -26,8 +26,8 @@ const Task = mongoose.model('Task', {
   createdAt: {
     type: Date,
     default: Date.now
-  }
-});
+    }
+  });
 
 const Person = mongoose.model('Person', {
   name: {
@@ -82,6 +82,9 @@ const Thought = mongoose.model("Thought", thoughtSchema);
               response: [],
               message: "No thoughts found for that query. Try another one."
             });
+          }
+          if (color) {
+            query.color = color;
           }
       
           res.status(200).json({
