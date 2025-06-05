@@ -26,8 +26,8 @@ const Task = mongoose.model('Task', {
   createdAt: {
     type: Date,
     default: Date.now
-    }
-  });
+                }
+        });
 
 const Person = mongoose.model('Person', {
   name: {
