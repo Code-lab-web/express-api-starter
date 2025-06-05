@@ -27,7 +27,6 @@ const Task = mongoose.model('Task', {
     type: Date,
     default: Date.now
   }
-});
 
 const Person = mongoose.model('Person', {
   name: {
@@ -183,24 +182,15 @@ app.get("/", (req, res) => {
 });
 
 app.post('/people', async (req, res) => {
-  // Promises
-  new Person(req.body).save()
-  .then((person) => {
-    res.status(200).json(person);
-  })
-  .catch((err) => {
-    res.status(400).json({message: 'Could not save person', errors: err.errors});
-
-  })
   try {
     const person = new Person(req.body);
     const savedPerson = await person.save();
-    res.json(savedPerson);
+    res.status(200).json(savedPerson);
   } catch (err) {
     // Bad Request
-    res.status(400).json.son({})
-    res.json({ message: 'Could not save person', errors: err.errors });
+    res.status(400).json({ message: 'Could not save person', errors: err.errors });
   }
+});
 });
 
 // Route to fetch all data
