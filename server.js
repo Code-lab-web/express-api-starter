@@ -25,6 +25,13 @@ const User = mongoose.model('User',{
     default: () => crypto.randomBytes(128).toString('hex')
   }
 });
+// Example
+// POST Request
+const request = {name :"Bob", password: "foobar"};
+// DB Entry
+const dbEntry = {name :"Bob", password "5abbc32983def"}
+bcrypt.compareSync(request.password, dbEntry.password);
+
 // One-way encryption
 const user = new User({name"Bob", password:bcrypt.hashSync("foobar") });})
 user.save();
