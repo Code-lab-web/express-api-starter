@@ -11,6 +11,9 @@ import thoughtsData from "/data/thoughts.json";
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 
+const mongourl = process.env.MONGO_URL [] // "mongodb://localhost/auth"
+mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose:Promise = Promise
 const User = mongoose.model('User',{
   name:{
     type: String,
@@ -325,6 +328,22 @@ app.post('/tasks', async (req, res) => {
   }
 });
 
+app.post('/sessions', async (req, res) => {
+  const user = await User.findOne({name: req.body.name});
+  if(user && bcrypt.compareSync(req.body.password, user.password))
+  });
+});
+// Success
+res.json({user._id,accesToken: user.accessToken})})
+}}}else{
+  // Failure
+  // a. User does not exist
+  // b. Encrypted password does not match
+  res.json({notFound:true});
+
+
+}
+})
 
 // Start the server
 app.listen(port, () => {
