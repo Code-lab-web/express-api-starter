@@ -194,6 +194,20 @@ const Thought = mongoose.model("Thought", thoughtSchema);
 const port = process.env.PORT || 8080;
 const app = express();
 
+const authenticate = async ( req, res  next) => {
+  const user = await User.findOne({accesToken:req.headers('Authorization')});
+if(user){
+  req.user = user;
+  next();
+} else {
+  res.status(401).json({loggedOut: true});
+
+}
+
+})})
+
+})
+
 // Removed redundant import for express-list-endpoints
 
 
@@ -343,6 +357,12 @@ res.json({user._id,accesToken: user.accessToken})})
 
 
 }
+})
+app.post('/tweets', authenticate);
+app.post ('/tweets', async (req,res) => {
+  
+// This will only happen if the next function is called fromthe middleare!
+// now we can access the req.user object from the middleware
 })
 
 // Start the server
