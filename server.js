@@ -11,6 +11,8 @@ import thoughtsData from "/data/thoughts.json";
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 
+// Ensure the MONGO_URL environment variable is set in your environment before running the server
+
 const mongourl = process.env.MONGO_URL || "mongodb://localhost/auth"; // Default MongoDB URL
 mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true});
 mongoose:Promise = Promise
