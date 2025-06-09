@@ -8,6 +8,23 @@ import listEndpoints from 'express-list-endpoints'
 import mongoose from "mongoose"
 
 import thoughtsData from "/data/thoughts.json";
+import crypto from 'crypto'
+import bcrypt from 'bcrypt-nodejs'
+
+const User = mongoose.model('User',{
+  name:{
+    type: String,
+    unique: true
+  },
+  password:{
+    type:String,
+    required:true
+  },
+  accesToken:{
+    type:String,
+    default: () => crypto.randomBytes(128).toString('hex')
+  }
+});
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/thoughts";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -309,5 +326,6 @@ app.get("/data", (req, res) => {
   console.log('queries:', req.query);
   res.json(data);
 });
+console.log(crypto.randomBytes(128).toString('hex'));
 
 // Ensure all routes and blocks are properly closed
