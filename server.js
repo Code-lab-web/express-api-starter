@@ -11,7 +11,7 @@ import thoughtsData from "/data/thoughts.json";
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 
-const mongourl = process.env.MONGO_URL [] // "mongodb://localhost/auth"
+const mongourl = process.env.MONGO_URL || "mongodb://localhost/auth"; // Default MongoDB URL
 mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true});
 mongoose:Promise = Promise
 const User = mongoose.model('User',{
@@ -27,16 +27,17 @@ const User = mongoose.model('User',{
     type:String,
     default: () => crypto.randomBytes(128).toString('hex')
   }
-});
+}); // Close the User model definition
+
 // Example
 // POST Request
 const request = {name :"Bob", password: "foobar"};
 // DB Entry
-const dbEntry = {name :"Bob", password "5abbc32983def"}
+const dbEntry = {name: "Bob", password: "5abbc32983def"}
 bcrypt.compareSync(request.password, dbEntry.password);
 
 // One-way encryption
-const user = new User({name"Bob", password:bcrypt.hashSync("foobar") });})
+const user = new User({name: "Bob", password: bcrypt.hashSync("foobar") });
 user.save();
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/thoughts";
@@ -194,19 +195,15 @@ const Thought = mongoose.model("Thought", thoughtSchema);
 const port = process.env.PORT || 8080;
 const app = express();
 
-const authenticate = async ( req, res  next) => {
+const authenticate = async (req, res, next) => {
   const user = await User.findOne({accesToken:req.headers('Authorization')});
-if(user){
-  req.user = user;
-  next();
-} else {
-  res.status(401).json({loggedOut: true});
-
-}
-
-})})
-
-})
+  if(user){
+    req.user = user;
+    next();
+  } else {
+    res.status(401).json({loggedOut: true});
+  }
+};
 
 // Removed redundant import for express-list-endpoints
 
@@ -343,21 +340,17 @@ app.post('/tasks', async (req, res) => {
 });
 
 app.post('/sessions', async (req, res) => {
-  const user = await User.findOne({name: req.body.name});
-  if(user && bcrypt.compareSync(req.body.password, user.password))
-  });
+  const user = await User.findOne({ name: req.body.name });
+  if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    // Success
+    res.json({ _id: user._id, accessToken: user.accesToken });
+  } else {
+    // Failure
+    // a. User does not exist
+    // b. Encrypted password does not match
+    res.json({ notFound: true });
+  }
 });
-// Success
-res.json({user._id,accesToken: user.accessToken})})
-}}}else{
-  // Failure
-  // a. User does not exist
-  // b. Encrypted password does not match
-  res.json({notFound:true});
-
-
-}
-})
 app.post('/tweets', authenticate);
 app.post ('/tweets', async (req,res) => {
   
