@@ -25,6 +25,9 @@ const User = mongoose.model('User',{
     default: () => crypto.randomBytes(128).toString('hex')
   }
 });
+// One-way encryption
+const user = new User({name"Bob", password:bcrypt.hashSync("foobar") });})
+user.save();
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/thoughts";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -327,5 +330,6 @@ app.get("/data", (req, res) => {
   res.json(data);
 });
 console.log(crypto.randomBytes(128).toString('hex'));
+console.log(bcrypt.hashSync("foobar"));
 
 // Ensure all routes and blocks are properly closed
