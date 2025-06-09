@@ -9,15 +9,34 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "^7.17.9",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
+    "atlas": "^1.0.0-alpha.0",
+    "babel": "^6.23.0",
+    "bcrypt": "^6.0.0",
+    "bcrypt-nodejs": "^0.0.3",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dom": "^0.0.3",
     "dotenv": "^16.5.0",
     "express": "^4.17.3",
     "express-list-endpoints": "^7.1.1",
     "middleware": "^1.0.0",
     "mongodb": "^6.16.0",
-    "nodemon": "^3.1.10"
+    "newman": "^6.2.0",
+    "nodemon": "^3.1.10",
+    "python": "^0.0.4",
+    "react": "^19.1.0",
+    "render": "^0.1.4",
+    "vite": "^6.3.5",
+    "zustand": "^5.0.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.27.2",
+    "@babel/core": "^7.27.4",
+    "@eslint/js": "^9.28.0",
+    "eslint": "^9.28.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.33.1"
   }
 }
