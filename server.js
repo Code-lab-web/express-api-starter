@@ -12,7 +12,7 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 
 // Ensure the MONGO_URL environment variable is set in your environment before running the server
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth"; // Default MongoDB URL
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 const User = mongoose.model('User',{
