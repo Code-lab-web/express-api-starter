@@ -12,10 +12,9 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 
 // Ensure the MONGO_URL environment variable is set in your environment before running the server
-
-const mongourl = process.env.MONGO_URL || "mongodb://localhost/auth"; // Default MongoDB URL
-mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true});
-mongoose:Promise = Promise
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth"; // Default MongoDB URL
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.Promise = Promise;
 const User = mongoose.model('User',{
   name:{
     type: String,
@@ -42,10 +41,7 @@ bcrypt.compareSync(request.password, dbEntry.password);
 const user = new User({name: "Bob", password: bcrypt.hashSync("foobar") });
 user.save();
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/thoughts";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.Promise = Promise
-
+mongoose.Promise = Promise;
 const Task = mongoose.model('Task', {
   text: {
     type: String,
@@ -59,8 +55,8 @@ const Task = mongoose.model('Task', {
   createdAt: {
     type: Date,
     default: Date.now
-                }
-        });
+  }
+}); // Added missing closing brace
 
 const Person = mongoose.model('Person', {
   name: {
@@ -73,8 +69,8 @@ const Person = mongoose.model('Person', {
     type: Number,
     required: true,
     min: 5,
-  },
-});
+  }
+}); // Properly closed Person model definition
 
 
 
@@ -83,7 +79,7 @@ const thoughtSchema = new mongoose.Schema({
   id: Number,
   name: String,
   scientificName: String,
-});
+}); // Added missing closing brace
 
 if (process.env.RESET_DB) {
   const seedDatabase = async () => {
