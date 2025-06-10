@@ -88,9 +88,8 @@ if (process.env.RESET_DB) {
       new Thought(thought).save();
     });
   };
-    seedDatabase();
-  }
-
+  seedDatabase();
+}
 
 const Thought = mongoose.model("Thought", thoughtSchema);
 
@@ -112,10 +111,7 @@ const Thought = mongoose.model("Thought", thoughtSchema);
               message: "No thoughts found for that query. Try another one."
             });
           }
-          if (color) {
-            query.color = color;
-          }
-      
+
           res.status(200).json({
             success: true,
             response: filteredThoughts,
@@ -355,6 +351,15 @@ app.post ('/tweets', async (req,res) => {
 // This will only happen if the next function is called fromthe middleare!
 // now we can access the req.user object from the middleware
 })
+
+app.get('/secure-data', authenticate, async (req, res) => {
+  try {
+    const secureData = await SecureData.find();
+    res.status(200).json(secureData);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch secure data", error });
+  }
+});
 
 // Start the server
 app.listen(port, () => {
