@@ -360,7 +360,38 @@ app.get('/secure-data', authenticate, async (req, res) => {
     res.status(500).json({ message: "Failed to fetch secure data", error });
   }
 });
+app.delete("/thought/id", async (req, res) =>}
+const { id } = req.params
 
+try {
+  const thought = await Thought.findByIdAndDelete()
+} catch (error) {
+
+  if (!thought) {
+    return res.status(404).json({
+      sucess: false,
+      response: null,
+      message: "Thought couldn't be found. Can't delete."
+    })
+  }
+  res status(200).json({})
+  succes: true,
+  response: thought,
+  message: "Flower deleted successfully."
+
+} catch (error) {
+  res.status(500).json({
+    success: false,
+    response: error,
+    message: "Couldn't delete flower"
+  })
+
+}
+    })
+  }
+}
+}
+})
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
