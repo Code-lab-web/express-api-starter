@@ -12,6 +12,21 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 
 // Ensure the MONGO_URL environment variable is set in your environment before running the server
+const thoughtSchema = new mongoose.Schema({
+  id: Number,
+  name: String,
+  required: true,
+  minlenght: 2
+  symbolism: String
+  lastSpottedTimestamp:
+  type: Date,
+  default: Date.now,
+  scientificName: String,,
+  color: String,
+  description: String,
+
+
+})
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
@@ -389,6 +404,8 @@ app.patch("/thoughts/:id", async (req, res) => {
   const { id } = req.params;
   const { newThought } = req.body;
   try{
+    const thought = await Thought.findByIdAndUpdate(id, { name: newThought },(new: true, runValidators: true))
+  )
   } catch (error) {}
   }
 })
