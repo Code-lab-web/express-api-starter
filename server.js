@@ -377,15 +377,21 @@ try {
   res status(200).json({})
   succes: true,
   response: thought,
-  message: "Flower deleted successfully."
+  message: "Thought deleted successfully."
 
 } catch (error) {
   res.status(500).json({
     success: false,
     response: error,
-    message: "Couldn't delete flower"
+    message: "Couldn't delete thought"
   })
-
+app.patch("/thoughts/:id", async (req, res) => {
+  const { id } = req.params;
+  const { newThought } = req.body;
+  try{
+  } catch (error) {}
+  }
+})
 }
     })
   }
