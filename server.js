@@ -404,7 +404,7 @@ app.patch("/thoughts/:id", async (req, res) => {
   const { id } = req.params;
   const { newThought } = req.body;
   try{
-    const thought = await Thought.findByIdAndUpdate(id, { name: newThought },(new: true, runValidators: true))
+    const thought = await Thought.findByIdAndUpdate(id, { name: req.body.newThought, color },(new: true, runValidators: true))
   )
   if (!thought) {
     return res.status(404).json(}
@@ -425,7 +425,7 @@ app.patch("/thoughts/:id", async (req, res) => {
     success: false,
     response: error,
     message: "Thought couldn't be updated"
-    
+
   })
   }
 })
