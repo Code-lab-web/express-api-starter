@@ -12,21 +12,7 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 
 // Ensure the MONGO_URL environment variable is set in your environment before running the server
-const thoughtSchema = new mongoose.Schema({
-  id: Number,
-  name: String,
-  required: true,
-  minlenght: 2
-  symbolism: String
-  lastSpottedTimestamp:
-  type: Date,
-  default: Date.now,
-  scientificName: String,,
-  color: String,
-  description: String,
-
-
-})
+// Removed duplicate and incorrect thoughtSchema definition
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
@@ -104,11 +90,20 @@ if (process.env.RESET_DB) {
     });
   };
   seedDatabase();
-}
+const thoughtSchema = new mongoose.Schema({
+  id: Number,
+  name: String,
+  symbolism: String,
+  scientificName: String,
+  color: String,
+  description: String,
+  lastSpottedTimestamp: {
+    type: Date,
+    default: Date.now,
+  },
+}); // Properly closed thoughtSchema definition
 
-const Thought = mongoose.model("Thought", thoughtSchema);
-
-      app.get("/thoughts", async (req, res) => {
+app.get("/thoughts", async (req, res) => {
         const { symbol } = req.query;
         const query = {};
       
@@ -126,7 +121,7 @@ const Thought = mongoose.model("Thought", thoughtSchema);
               message: "No thoughts found for that query. Try another one."
             });
           }
-
+      
           res.status(200).json({
             success: true,
             response: filteredThoughts,
@@ -140,7 +135,7 @@ const Thought = mongoose.model("Thought", thoughtSchema);
           });
         }
       });
-          
+                
       app.get("/thoughts/:id", async (req, res) => {
         const { id } = req.params;
       
@@ -365,7 +360,7 @@ app.post ('/tweets', async (req,res) => {
   
 // This will only happen if the next function is called fromthe middleare!
 // now we can access the req.user object from the middleware
-})
+});
 
 app.get('/secure-data', authenticate, async (req, res) => {
   try {
@@ -374,67 +369,61 @@ app.get('/secure-data', authenticate, async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch secure data", error });
   }
-});
-app.delete("/thought/id", async (req, res) =>}
-const { id } = req.params
+}); // Close the '/secure-data' route
 
-try {
-  const thought = await Thought.findByIdAndDelete()
-} catch (error) {
-
-  if (!thought) {
-    return res.status(404).json({
-      sucess: false,
-      response: null,
-      message: "Thought couldn't be found. Can't delete."
-    })
+app.delete("/thought/id", async (req, res) => {
+  try {
+    const thought = await Thought.findByIdAndDelete(req.params.id);
+    if (!thought) {
+      return res.status(404).json({
+        success: false,
+        response: null,
+        message: "Thought couldn't be found. Can't delete."
+      });
+    }
+    res.status(200).json({
+      success: true,
+      response: thought,
+      message: "Thought deleted successfully."
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      response: error,
+      message: "Couldn't delete thought"
+    });
   }
-  res status(200).json({})
-  succes: true,
-  response: thought,
-  message: "Thought deleted successfully."
+});
 
-} catch (error) {
-  res.status(500).json({
-    success: false,
-    response: error,
-    message: "Couldn't delete thought"
-  })
 app.patch("/thoughts/:id", async (req, res) => {
   const { id } = req.params;
-  const { newThought } = req.body;
-  try{
-    const thought = await Thought.findByIdAndUpdate(id, { name: req.body.newThought, color },(new: true, runValidators: true))
-  )
-  if (!thought) {
-    return res.status(404).json(}
-      succes: false,
-      response: null,
-      message: "Thought could't edit,"
-    })
-    )
+  const { newThought, color } = req.body;
+  try {
+    const thought = await Thought.findByIdAndUpdate(
+      id,
+      { name: newThought, color },
+      { new: true, runValidators: true }
+    );
+    if (!thought) {
+      return res.status(404).json({
+        success: false,
+        response: null,
+        message: "Thought couldn't be edited."
+      });
+    }
     res.status(200).json({
       success: true,
       response: thought,
       message: "Thought updated successfully."
-
-    })
-
-  } catch (error) {}
-  res.status(500).json({
-    success: false,
-    response: error,
-    message: "Thought couldn't be updated"
-
-  })
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      response: error,
+      message: "Thought couldn't be updated"
+    });
   }
-})
-}
-    })
-  }
-}
-}
-})
+});
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
