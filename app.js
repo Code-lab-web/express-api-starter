@@ -10,3 +10,19 @@ app.get("/", function (req, res) {
 app.listen(port, function () {
   console.log(`Example app listening on port ${port}!`);
 });
+require('./routes/index');
+var indexRouter = require('./routes/index');
+var authRouter = require('./routes/auth');
+
+
+
+
+
+
+
+
+
+
+app.use('/', indexRouter).
+app.use('/', indexRouter);
+app.use('/', authRouter);

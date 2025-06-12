@@ -85,11 +85,11 @@ const thoughtSchema = new mongoose.Schema({
 if (process.env.RESET_DB) {
   const seedDatabase = async () => {
     await Thought.deleteMany({});
-    thoughtData.forEach(thought => {
-      new Thought(thought).save();
-    });
-  };
-  seedDatabase();
+  thoughtData.forEach(thought => {
+    new Thought(thought).save();
+  });
+};
+seedDatabase();
 const thoughtSchema = new mongoose.Schema({
   id: Number,
   name: String,
@@ -240,7 +240,7 @@ app.post('/people', async (req, res) => {
     res.status(400).json({ message: 'Could not save person', errors: err.errors });
   }
 });
-});
+}n;
 
 // Route to fetch all data
 app.get("/data", (req, res) => {
