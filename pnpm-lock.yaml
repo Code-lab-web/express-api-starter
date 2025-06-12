@@ -26,6 +26,9 @@ dependencies:
   express-list-endpoints:
     specifier: ^7.1.1
     version: 7.1.1
+  middleware:
+    specifier: ^1.0.0
+    version: 1.0.0
   mongodb:
     specifier: ^6.16.0
     version: 6.16.0
@@ -2210,6 +2213,10 @@ packages:
   /methods@1.1.2:
     resolution: {integrity: sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==}
     engines: {node: '>= 0.6'}
+    dev: false
+
+  /middleware@1.0.0:
+    resolution: {integrity: sha512-c3rqqJbL4fMsacWYc1Cgck/ohjVh6s9rwX8wb2BnJSdEwNguf8La0QukSEPAeAHKl8I9WrCnJOb70YgyNCCzjg==}
     dev: false
 
   /mime-db@1.52.0:
