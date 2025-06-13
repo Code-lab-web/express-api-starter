@@ -10,6 +10,13 @@ const thoughtSchema = new mongoose.Schema({
   color: {
     type: String,
     required: true
+  },
+  symbolism: {
+    type: [String],
+  },
+  lastThoughtTimestamp: {
+    type: Date,
+    default: Date.now
   }
-});
+})
 export const thought = mongoose.model("Thought", thoughtSchema)
