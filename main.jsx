@@ -1,6 +1,11 @@
-import { Header } from "./components/Header"
-import { ThoughtForm } from "./components/ThoughtForm"
-import { ThoughtList } from "./components/ThoughtList"
+import { Header } from "./Header"
+import { ThoughtForm } from "./ThoughtForm"
+import { ThoughtList } from "./ThoughtList"
+import { ColorFilter } from "./ColorFilter"
+import { ThoughtGrid } from "./ThoughtGrid"
+import "./Card.css";
+import "./index.css";
+import "./App.css"
 
 import "./App.css"
 
