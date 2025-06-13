@@ -80,3 +80,5 @@ Currently, two official plugins are available:
 @vitejs/plugin-react-swc uses SWC for Fast Refresh
 Expanding the ESLint configuration
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the TS template for information on how to integrate TypeScript and typescript-eslint in your project.
+
+Install dependencies with npm install, then start the server by running npm run dev
