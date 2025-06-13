@@ -1,0 +1,23 @@
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  }
+  .App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  .input-container {
+    position: relative;
+  }
+  input {
+    border: 1px solid #e4e4e7;
+    padding: 0.5rem 0.5rem;
+    width: 320 - 1600px;
+  }
+  .error {
+    position: absolute;
+    top: 1.5rem;
+    left: 0;
+    color: red;
+  }
+  
+  
