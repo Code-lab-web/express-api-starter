@@ -1,8 +1,8 @@
 // All the endpoints when dealing with the flowers are stored here
 
 import express from "express";
-import { Thought } from "../models/Thought.js";
-import { authenticateUser } from "../middleware/authMiddleware.js";
+import { Thought } from "../thought.js";
+import { authenticateUser } from "../authMiddleware.js";
 
 const router = express.Router();
 
