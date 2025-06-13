@@ -11,6 +11,9 @@ import thoughtsData from "/data/thoughts.json";
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 
+import userRoutes from "./userRoutes.js";
+import thoughtRoutes from "./thoughtRoutes.js";
+
 // Ensure the MONGO_URL environment variable is set in your environment before running the server
 // Removed duplicate and incorrect thoughtSchema definition
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/auth";
