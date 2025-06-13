@@ -18,6 +18,8 @@ import { Form } from "./Form";
 import { Card } from "./Card";
 import { Index } from "./Index";
 import { Css } from "./Css";
+import { Animation } from "./Animation";
+
 
 // Removed duplicate declaration of App component
 export const App = () => {

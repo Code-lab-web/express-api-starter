@@ -18,6 +18,7 @@ import { Form } from "./Form";
 import { Card } from "./Card";
 import { Index } from "./Index";
 import { Css } from "./Css";
+import { Animation } from "./Animation";
 
 import App from './App.jsx'
 import "./App.css"
