@@ -29,6 +29,16 @@ import {
                 <CardContent>
                   <Typography variant="h6">{thought.name}</Typography>
                   <Chip label={thought.color} color="primary" />
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+          </Box>
+        )
+      }
+      
+      export default ThoughtsGrid
                   
               
       

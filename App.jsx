@@ -9,17 +9,7 @@ import "./Card.css";
 import "./index.css";
 import "./App.css"
 
-export const App = () => { 
-  return (
-    <>
-      <Header />
-      <main>
-        <ThoughtForm />
-        <ThoughtList />
-      </main>
-    </>
-  )
-}
+// Removed duplicate declaration of App component
 export const App = () => {
   const [count, setCount] = useState(0);
   
