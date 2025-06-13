@@ -14,9 +14,10 @@ import { LoadingSpinner } from "./LoadingSpinner";
 import { LoginForm } from "./LoginForm";
 import { SignupForm } from "./SignupForm";
 import { EditButton } from "./EditButton"
-import "./Card.css";
-import "./index.css";
-import "./App.css"
+import { Form } from "./Form";
+import { Card } from "./Card";
+import { Index } from "./Index";
+import { Css } from "./Css";
 
 import App from './App.jsx'
 import "./App.css"
