@@ -35,7 +35,7 @@ def mongo_inserter(cid, ndocs, host, port):
     db = conn[DB_NAME]
     collection = db[COLLECTION_NAME]
     t0 = time.time()
-    for n in xrange(ndocs):
+    for n in range(ndocs):
         message = "updating mongodb with value {v} from client {i}".format(v=n, i=cid)
         log.info(message)
         doc = {'doc_id': n, 'created_at': datetime.datetime.now(), 'message': message, 'client_id': cid}
@@ -45,7 +45,7 @@ def mongo_inserter(cid, ndocs, host, port):
     dt = tf - t0
     ops = ndocs / dt
     m = "Client {i} on node {s} took {dt} with op/s {o:2f}".format(i=cid, s=s, dt=dt, o=ops)
-    print m
+    print(m)
     log.info(m)
     log.info("Client {i} completed".format(i=cid))
 
@@ -55,9 +55,9 @@ def main(nclients, ndocs, host, port):
     if rank == 0:
         #data could be the db config params
         #comm.send(config, tag=11)
-        print "starting up rank {r} on {s}".format(r=rank, s=sname)
+        print("starting up rank {r} on {s}".format(r=rank, s=sname))
     else:
-        print "starting up rank {r} on {s}".format(r=rank, s=sname)
+        print("starting up rank {r} on {s}".format(r=rank, s=sname))
         #data = comm.recv(source=0, tag=11)
         mongo_inserter(rank, ndocs, host, port)
         sys.exit(0)
@@ -76,5 +76,5 @@ if __name__ == '__main__':
     if options.nclients is not None and options.host is not None:
         sys.exit(main(options.nclients, options.ndocs, options.host, options.port))
     else:
-        print "Provide --nclients and --host options"
+        print("Provide --nclients and --host options")
         sys.exit(0)
