@@ -20,7 +20,7 @@ import { Index } from "./Index";
 import { Css } from "./Css";
 import { Animation } from "./Animation";
 
-import App from './App.jsx'
+import App from '../../../../../App.js'
 import "./App.css"
 createRoot(document.getElementById('root')).render(
   <StrictMode>

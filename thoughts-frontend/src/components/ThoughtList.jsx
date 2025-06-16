@@ -1,5 +1,5 @@
 import { useThoughtStore } from "../stores/useThoughtStore"
-import { Thought } from "./Thought"
+import { Thought } from "../../Thought"
 
 export const ThoughtList = () => {
   const thoughts = useThoughtStore(state => state.thoughts)
