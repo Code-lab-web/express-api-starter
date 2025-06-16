@@ -169,8 +169,8 @@ def main():
         from mongate import connection
         try:
             connections = [connection.Connection(host, 27080)
-                       for _ in xrange(ncli)]
-        except socket.error, err:
+                      for _ in range(ncli)]
+        except socket.error as err:
             log.critical("mongoose.connection.error msg={}".format(err))
             return -1
         for conn in connections:
