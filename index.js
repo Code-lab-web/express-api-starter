@@ -46,6 +46,10 @@ const App = () => {
 //   // Add your animation logic here or remove this function if not needed
 
 
+const loader = document.querySelector(`preloader`);
+
+
+
 
 // };
 const rootElement = document.getElementById("root");
