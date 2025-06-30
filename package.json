@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "@fontsource/roboto": "^5.2.6"
+    "@fontsource/roboto": "^5.2.6",
+    "@mui/material": "^7.2.0",
+    "@mui/styled-engine-sc": "^7.2.0",
+    "styled-components": "^6.1.19"
   }
 }
