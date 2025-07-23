@@ -23,5 +23,14 @@
     "@babel/node": "^7.8.3",
     "@babel/present-env":"^7.8.3",
     "nodemon": "^2.0.2"
+    "@babel/core": "^7.17.9",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "mongodb": "^6.16.0",
+    "mongoose": "^8.15.1",
+    "nodemon": "^3.0.1"
   }
 }
