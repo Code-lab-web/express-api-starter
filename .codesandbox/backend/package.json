@@ -6,7 +6,7 @@
   "start": "nodemon server.js -- exec babel-node",
   "test": "jest"
 },
-"author": ""{
+"author": "Code-lab-web"{
   "license": "ISC"
   "dependencies": {}
 }
