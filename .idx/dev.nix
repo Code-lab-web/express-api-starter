@@ -7,6 +7,8 @@
   # Use https://search.nixos.org/packages to find packages
   packages = [
     # pkgs.sudo
+    # pkgs-sudo-shim
+    # pkgs.sudo-rs
     # pkgs.go
     # pkgs.python311
     # pkgs.python311Packages.pip
