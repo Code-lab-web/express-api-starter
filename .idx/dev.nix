@@ -16,6 +16,7 @@
     # pkgs.nodePackages.nodemon
     # pkgs.python312Packages.pip
     # pkgs.openssh
+    # pkgs.eval
   ];
 
   # Sets environment variables in the workspace
