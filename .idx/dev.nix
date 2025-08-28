@@ -17,6 +17,7 @@
     # pkgs.python312Packages.pip
     # pkgs.openssh
     # pkgs.eval
+    # pkgs.busybox
   ];
 
   # Sets environment variables in the workspace
