@@ -75,3 +75,5 @@ function Header() {
 app.use('/', indexRouter).
 app.use('/', indexRouter);
 app.use('/', authRouter);
+
+module.exports = app;
