@@ -20,7 +20,8 @@
     "jsonwebtoken": "^9.0.2",
     "passport": "^0.7.0",
     "passport-facebook": "^3.0.0",
-    "state": "^0.2.0"
+    "state": "^0.2.0",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@babel/node": "^7.28.0"
