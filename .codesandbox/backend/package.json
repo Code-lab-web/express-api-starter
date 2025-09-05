@@ -1,35 +1,31 @@
 
-
-"name": "express-api-starter"
-"version": "1.0.0",
-"description": "Starter project to get and running with express quickly",
-"scripts": {
-  "start": "babel-node server.js",
-  "dev": "nodemon server.js --exec babel-node"
-  "test": "jest"
-},
-"author": "Special Garden Group",
-"licence": "ISC OR GPL-3.0",
-"dependencies": {
-  "express": "^5.1.0"
-  "@fontsource/roboto": "^5.2.6",
-  "@mui/icons-material": "^7.2.0",
-  "@mui/material": "^7.2.0",
-  "@mui/styled-engine-sc": "^7.2.0",
-  "react": "^19.1.0",
-  "react-dom": "^19.1.0",
-  "styled-components": "^6.1.19"
-  "@babel/core": "^7.8.3",
-  "@babel/node": "^7.8.3",
-  "@babel/present-env":"^7.8.3",
-  "nodemon": "^2.0.2"
-  "@babel/core": "^7.17.9",
-  "@babel/node": "^7.16.8",
-  "@babel/preset-env": "^7.16.11",
-  "cors": "^2.8.5",
-  "dotenv": "^16.5.0",
-  "mongodb": "^6.16.0",
-  "mongoose": "^8.15.1",
-  "nodemon": "^3.0.1"
+{
+  "name": "express-api-starter",
+  "version": "1.0.0",
+  "description": "Starter project to get and running with express quickly",
+  "scripts": {
+    "start": "babel-node server.js",
+    "dev": "nodemon server.js --exec babel-node",
+    "test": "jest"
+  },
+  "author": "Special Garden Group",
+  "licence": "ISC OR GPL-3.0",
+  "dependencies": {
+    "express": "^5.1.0",
+    "@fontsource/roboto": "^5.2.6",
+    "@mui/icons-material": "^7.2.0",
+    "@mui/material": "^7.2.0",
+    "@mui/styled-engine-sc": "^7.2.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "styled-components": "^6.1.19",
+    "@babel/core": "^7.17.9",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "nodemon": "^3.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "mongodb": "^6.16.0",
+    "mongoose": "^8.15.1"
   }
 }
