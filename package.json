@@ -24,6 +24,7 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "@babel/node": "^7.28.0"
+    "@babel/node": "^7.28.0",
+    "jest": "^30.1.3"
   }
 }
