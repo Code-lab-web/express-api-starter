@@ -1,0 +1,10 @@
+
+version: 2
+locations:
+  home:
+    from: /home/user
+    to: local_backup
+backends:
+  local_backup:
+    type: local
+    path: /home/user/autorestic_backup
