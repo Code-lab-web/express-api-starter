@@ -1,0 +1,30 @@
+
+/* Base styles - these apply to all screen sizes */
+body {
+  font-size: 16px;
+}
+
+/* Mobile styles (up to 767px) */
+@media (max-width: 767px) {
+  /* Add mobile-specific styles here */
+  .App {
+    padding: 1rem;
+  }
+}
+
+/* Tablet styles (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Add tablet-specific styles here */
+  .App {
+    padding: 2rem;
+  }
+}
+
+/* Desktop styles (1024px and up) */
+@media (min-width: 1024px) {
+  /* Add desktop-specific styles here */
+  .App {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+}
