@@ -16,10 +16,11 @@
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
-    "global": "^4.4.0",
+    "global": "^2.0.2",
     "jsonwebtoken": "^9.0.2",
     "passport": "^0.7.0",
     "passport-facebook": "^3.0.0",
+    "python": "^0.0.4",
     "state": "^0.2.0",
     "zustand": "^5.0.8"
   },
