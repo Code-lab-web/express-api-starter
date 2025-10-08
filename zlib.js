@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 'use strict';
+=======
+"use strict";
+>>>>>>> refs/remotes/origin/master
 
 const {
   ArrayBuffer,
@@ -25,15 +29,22 @@ const {
     ERR_ZSTD_INVALID_PARAM,
   },
   genericNodeError,
+<<<<<<< HEAD
 } = require('internal/errors');
 const { Transform, finished } = require('stream');
 const {
   deprecateInstantiation,
 } = require('internal/util');
+=======
+} = require("internal/errors");
+const { Transform, finished } = require("stream");
+const { deprecateInstantiation } = require("internal/util");
+>>>>>>> refs/remotes/origin/master
 const {
   isArrayBufferView,
   isAnyArrayBuffer,
   isUint8Array,
+<<<<<<< HEAD
 } = require('internal/util/types');
 const binding = internalBinding('zlib');
 const { crc32: crc32Native } = binding;
@@ -43,11 +54,20 @@ const {
   kMaxLength,
 } = require('buffer');
 const { owner_symbol } = require('internal/async_hooks').symbols;
+=======
+} = require("internal/util/types");
+const binding = internalBinding("zlib");
+const { crc32: crc32Native } = binding;
+const assert = require("internal/assert");
+const { Buffer, kMaxLength } = require("buffer");
+const { owner_symbol } = require("internal/async_hooks").symbols;
+>>>>>>> refs/remotes/origin/master
 const {
   checkRangesOrGetDefault,
   validateFunction,
   validateUint32,
   validateFiniteNumber,
+<<<<<<< HEAD
 } = require('internal/validators');
 
 const kFlushFlag = Symbol('kFlushFlag');
@@ -70,6 +90,57 @@ const {
   BROTLI_OPERATION_FINISH, BROTLI_OPERATION_EMIT_METADATA,
   // Zstd end directives (~flush levels)
   ZSTD_e_continue, ZSTD_e_flush, ZSTD_e_end,
+=======
+} = require("internal/validators");
+
+const kFlushFlag = Symbol("kFlushFlag");
+const kError = Symbol("kError");
+
+const constants = internalBinding("constants").zlib;
+const {
+  // Zlib flush levels
+  Z_NO_FLUSH,
+  Z_BLOCK,
+  Z_PARTIAL_FLUSH,
+  Z_SYNC_FLUSH,
+  Z_FULL_FLUSH,
+  Z_FINISH,
+  // Zlib option values
+  Z_MIN_CHUNK,
+  Z_MIN_WINDOWBITS,
+  Z_MAX_WINDOWBITS,
+  Z_MIN_LEVEL,
+  Z_MAX_LEVEL,
+  Z_MIN_MEMLEVEL,
+  Z_MAX_MEMLEVEL,
+  Z_DEFAULT_CHUNK,
+  Z_DEFAULT_COMPRESSION,
+  Z_DEFAULT_STRATEGY,
+  Z_DEFAULT_WINDOWBITS,
+  Z_DEFAULT_MEMLEVEL,
+  Z_FIXED,
+  // Node's compression stream modes (node_zlib_mode)
+  DEFLATE,
+  DEFLATERAW,
+  INFLATE,
+  INFLATERAW,
+  GZIP,
+  GUNZIP,
+  UNZIP,
+  BROTLI_DECODE,
+  BROTLI_ENCODE,
+  ZSTD_COMPRESS,
+  ZSTD_DECOMPRESS,
+  // Brotli operations (~flush levels)
+  BROTLI_OPERATION_PROCESS,
+  BROTLI_OPERATION_FLUSH,
+  BROTLI_OPERATION_FINISH,
+  BROTLI_OPERATION_EMIT_METADATA,
+  // Zstd end directives (~flush levels)
+  ZSTD_e_continue,
+  ZSTD_e_flush,
+  ZSTD_e_end,
+>>>>>>> refs/remotes/origin/master
 } = constants;
 
 // Translation table for return codes.
@@ -90,7 +161,11 @@ for (const ckey of ObjectKeys(codes)) {
 }
 
 function zlibBuffer(engine, buffer, callback) {
+<<<<<<< HEAD
   validateFunction(callback, 'callback');
+=======
+  validateFunction(callback, "callback");
+>>>>>>> refs/remotes/origin/master
   // Streams do not support non-Uint8Array ArrayBufferViews yet. Convert it to a
   // Buffer without copying.
   if (isArrayBufferView(buffer) && !isUint8Array(buffer)) {
@@ -101,9 +176,15 @@ function zlibBuffer(engine, buffer, callback) {
   engine.buffers = null;
   engine.nread = 0;
   engine.cb = callback;
+<<<<<<< HEAD
   engine.on('data', zlibBufferOnData);
   engine.on('error', zlibBufferOnError);
   engine.on('end', zlibBufferOnEnd);
+=======
+  engine.on("data", zlibBufferOnData);
+  engine.on("error", zlibBufferOnError);
+  engine.on("end", zlibBufferOnEnd);
+>>>>>>> refs/remotes/origin/master
   engine.end(buffer);
 }
 
@@ -116,13 +197,21 @@ function zlibBufferOnData(chunk) {
   this.nread += chunk.length;
   if (this.nread > this._maxOutputLength) {
     this.close();
+<<<<<<< HEAD
     this.removeAllListeners('end');
+=======
+    this.removeAllListeners("end");
+>>>>>>> refs/remotes/origin/master
     this.cb(new ERR_BUFFER_TOO_LARGE(this._maxOutputLength));
   }
 }
 
 function zlibBufferOnError(err) {
+<<<<<<< HEAD
   this.removeAllListeners('end');
+=======
+  this.removeAllListeners("end");
+>>>>>>> refs/remotes/origin/master
   this.cb(err);
 }
 
@@ -132,6 +221,7 @@ function zlibBufferOnEnd() {
     buf = Buffer.alloc(0);
   } else {
     const bufs = this.buffers;
+<<<<<<< HEAD
     buf = (bufs.length === 1 ? bufs[0] : Buffer.concat(bufs, this.nread));
   }
   this.close();
@@ -143,21 +233,42 @@ function zlibBufferOnEnd() {
 
 function zlibBufferSync(engine, buffer) {
   if (typeof buffer === 'string') {
+=======
+    buf = bufs.length === 1 ? bufs[0] : Buffer.concat(bufs, this.nread);
+  }
+  this.close();
+  if (this._info) this.cb(null, { buffer: buf, engine: this });
+  else this.cb(null, buf);
+}
+
+function zlibBufferSync(engine, buffer) {
+  if (typeof buffer === "string") {
+>>>>>>> refs/remotes/origin/master
     buffer = Buffer.from(buffer);
   } else if (!isArrayBufferView(buffer)) {
     if (isAnyArrayBuffer(buffer)) {
       buffer = Buffer.from(buffer);
     } else {
       throw new ERR_INVALID_ARG_TYPE(
+<<<<<<< HEAD
         'buffer',
         ['string', 'Buffer', 'TypedArray', 'DataView', 'ArrayBuffer'],
         buffer,
+=======
+        "buffer",
+        ["string", "Buffer", "TypedArray", "DataView", "ArrayBuffer"],
+        buffer
+>>>>>>> refs/remotes/origin/master
       );
     }
   }
   buffer = processChunkSync(engine, buffer, engine._finishFlushFlag);
+<<<<<<< HEAD
   if (engine._info)
     return { buffer, engine };
+=======
+  if (engine._info) return { buffer, engine };
+>>>>>>> refs/remotes/origin/master
   return buffer;
 }
 
@@ -174,9 +285,15 @@ function zlibOnError(message, errno, code) {
 }
 
 const FLUSH_BOUND = [
+<<<<<<< HEAD
   [ Z_NO_FLUSH, Z_BLOCK ],
   [ BROTLI_OPERATION_PROCESS, BROTLI_OPERATION_EMIT_METADATA ],
   [ ZSTD_e_continue, ZSTD_e_end ],
+=======
+  [Z_NO_FLUSH, Z_BLOCK],
+  [BROTLI_OPERATION_PROCESS, BROTLI_OPERATION_EMIT_METADATA],
+  [ZSTD_e_continue, ZSTD_e_end],
+>>>>>>> refs/remotes/origin/master
 ];
 const FLUSH_BOUND_IDX_NORMAL = 0;
 const FLUSH_BOUND_IDX_BROTLI = 1;
@@ -191,7 +308,11 @@ function ZlibBase(opts, mode, handle, { flush, finishFlush, fullFlush }) {
   let maxOutputLength = kMaxLength;
   // The ZlibBase class is not exported to user land, the mode should only be
   // passed in by us.
+<<<<<<< HEAD
   assert(typeof mode === 'number');
+=======
+  assert(typeof mode === "number");
+>>>>>>> refs/remotes/origin/master
   assert(mode >= DEFLATE && mode <= ZSTD_DECOMPRESS);
 
   let flushBoundIdx;
@@ -205,6 +326,7 @@ function ZlibBase(opts, mode, handle, { flush, finishFlush, fullFlush }) {
 
   if (opts) {
     chunkSize = opts.chunkSize;
+<<<<<<< HEAD
     if (!validateFiniteNumber(chunkSize, 'options.chunkSize')) {
       chunkSize = Z_DEFAULT_CHUNK;
     } else if (chunkSize < Z_MIN_CHUNK) {
@@ -224,6 +346,41 @@ function ZlibBase(opts, mode, handle, { flush, finishFlush, fullFlush }) {
     maxOutputLength = checkRangesOrGetDefault(
       opts.maxOutputLength, 'options.maxOutputLength',
       1, kMaxLength, kMaxLength);
+=======
+    if (!validateFiniteNumber(chunkSize, "options.chunkSize")) {
+      chunkSize = Z_DEFAULT_CHUNK;
+    } else if (chunkSize < Z_MIN_CHUNK) {
+      throw new ERR_OUT_OF_RANGE(
+        "options.chunkSize",
+        `>= ${Z_MIN_CHUNK}`,
+        chunkSize
+      );
+    }
+
+    flush = checkRangesOrGetDefault(
+      opts.flush,
+      "options.flush",
+      FLUSH_BOUND[flushBoundIdx][0],
+      FLUSH_BOUND[flushBoundIdx][1],
+      flush
+    );
+
+    finishFlush = checkRangesOrGetDefault(
+      opts.finishFlush,
+      "options.finishFlush",
+      FLUSH_BOUND[flushBoundIdx][0],
+      FLUSH_BOUND[flushBoundIdx][1],
+      finishFlush
+    );
+
+    maxOutputLength = checkRangesOrGetDefault(
+      opts.maxOutputLength,
+      "options.maxOutputLength",
+      1,
+      kMaxLength,
+      kMaxLength
+    );
+>>>>>>> refs/remotes/origin/master
 
     if (opts.encoding || opts.objectMode || opts.writableObjectMode) {
       opts = { ...opts };
@@ -255,7 +412,11 @@ function ZlibBase(opts, mode, handle, { flush, finishFlush, fullFlush }) {
 ObjectSetPrototypeOf(ZlibBase.prototype, Transform.prototype);
 ObjectSetPrototypeOf(ZlibBase, Transform);
 
+<<<<<<< HEAD
 ObjectDefineProperty(ZlibBase.prototype, '_closed', {
+=======
+ObjectDefineProperty(ZlibBase.prototype, "_closed", {
+>>>>>>> refs/remotes/origin/master
   __proto__: null,
   configurable: true,
   enumerable: true,
@@ -268,8 +429,13 @@ ObjectDefineProperty(ZlibBase.prototype, '_closed', {
  * @this {ZlibBase}
  * @returns {void}
  */
+<<<<<<< HEAD
 ZlibBase.prototype.reset = function() {
   assert(this._handle, 'zlib binding closed');
+=======
+ZlibBase.prototype.reset = function () {
+  assert(this._handle, "zlib binding closed");
+>>>>>>> refs/remotes/origin/master
   return this._handle.reset();
 };
 
@@ -279,8 +445,13 @@ ZlibBase.prototype.reset = function() {
  * internally, when the last chunk has been written.
  * @returns {void}
  */
+<<<<<<< HEAD
 ZlibBase.prototype._flush = function(callback) {
   this._transform(Buffer.alloc(0), '', callback);
+=======
+ZlibBase.prototype._flush = function (callback) {
+  this._transform(Buffer.alloc(0), "", callback);
+>>>>>>> refs/remotes/origin/master
 };
 
 /**
@@ -288,7 +459,11 @@ ZlibBase.prototype._flush = function(callback) {
  * Force Transform compat behavior.
  * @returns {void}
  */
+<<<<<<< HEAD
 ZlibBase.prototype._final = function(callback) {
+=======
+ZlibBase.prototype._final = function (callback) {
+>>>>>>> refs/remotes/origin/master
   callback();
 };
 
@@ -300,8 +475,19 @@ ZlibBase.prototype._final = function(callback) {
 // Z_NO_FLUSH < Z_BLOCK < Z_PARTIAL_FLUSH <
 //     Z_SYNC_FLUSH < Z_FULL_FLUSH < Z_FINISH
 const flushiness = [];
+<<<<<<< HEAD
 const kFlushFlagList = [Z_NO_FLUSH, Z_BLOCK, Z_PARTIAL_FLUSH,
                         Z_SYNC_FLUSH, Z_FULL_FLUSH, Z_FINISH];
+=======
+const kFlushFlagList = [
+  Z_NO_FLUSH,
+  Z_BLOCK,
+  Z_PARTIAL_FLUSH,
+  Z_SYNC_FLUSH,
+  Z_FULL_FLUSH,
+  Z_FINISH,
+];
+>>>>>>> refs/remotes/origin/master
 for (let i = 0; i < kFlushFlagList.length; i++) {
   flushiness[kFlushFlagList[i]] = i;
 }
@@ -322,13 +508,19 @@ const kFlushBuffers = [];
   }
 }
 
+<<<<<<< HEAD
 ZlibBase.prototype.flush = function(kind, callback) {
   if (typeof kind === 'function' || (kind === undefined && !callback)) {
+=======
+ZlibBase.prototype.flush = function (kind, callback) {
+  if (typeof kind === "function" || (kind === undefined && !callback)) {
+>>>>>>> refs/remotes/origin/master
     callback = kind;
     kind = this._defaultFullFlushFlag;
   }
 
   if (this.writableFinished) {
+<<<<<<< HEAD
     if (callback)
       process.nextTick(callback);
   } else if (this.writableEnded) {
@@ -336,6 +528,13 @@ ZlibBase.prototype.flush = function(kind, callback) {
       this.once('end', callback);
   } else {
     this.write(kFlushBuffers[kind], '', callback);
+=======
+    if (callback) process.nextTick(callback);
+  } else if (this.writableEnded) {
+    if (callback) this.once("end", callback);
+  } else {
+    this.write(kFlushBuffers[kind], "", callback);
+>>>>>>> refs/remotes/origin/master
   }
 };
 
@@ -343,21 +542,37 @@ ZlibBase.prototype.flush = function(kind, callback) {
  * @this {import('stream').Transform}
  * @param {(err?: Error) => any} [callback]
  */
+<<<<<<< HEAD
 ZlibBase.prototype.close = function(callback) {
+=======
+ZlibBase.prototype.close = function (callback) {
+>>>>>>> refs/remotes/origin/master
   if (callback) finished(this, callback);
   this.destroy();
 };
 
+<<<<<<< HEAD
 ZlibBase.prototype._destroy = function(err, callback) {
+=======
+ZlibBase.prototype._destroy = function (err, callback) {
+>>>>>>> refs/remotes/origin/master
   _close(this);
   callback(err);
 };
 
+<<<<<<< HEAD
 ZlibBase.prototype._transform = function(chunk, encoding, cb) {
   let flushFlag = this._defaultFlushFlag;
   // We use a 'fake' zero-length chunk to carry information about flushes from
   // the public API to the actual stream implementation.
   if (typeof chunk[kFlushFlag] === 'number') {
+=======
+ZlibBase.prototype._transform = function (chunk, encoding, cb) {
+  let flushFlag = this._defaultFlushFlag;
+  // We use a 'fake' zero-length chunk to carry information about flushes from
+  // the public API to the actual stream implementation.
+  if (typeof chunk[kFlushFlag] === "number") {
+>>>>>>> refs/remotes/origin/master
     flushFlag = chunk[kFlushFlag];
   }
 
@@ -368,12 +583,19 @@ ZlibBase.prototype._transform = function(chunk, encoding, cb) {
   processChunk(this, chunk, flushFlag, cb);
 };
 
+<<<<<<< HEAD
 ZlibBase.prototype._processChunk = function(chunk, flushFlag, cb) {
   // _processChunk() is left for backwards compatibility
   if (typeof cb === 'function')
     processChunk(this, chunk, flushFlag, cb);
   else
     return processChunkSync(this, chunk, flushFlag);
+=======
+ZlibBase.prototype._processChunk = function (chunk, flushFlag, cb) {
+  // _processChunk() is left for backwards compatibility
+  if (typeof cb === "function") processChunk(this, chunk, flushFlag, cb);
+  else return processChunkSync(this, chunk, flushFlag);
+>>>>>>> refs/remotes/origin/master
 };
 
 function processChunkSync(self, chunk, flushFlag) {
@@ -393,11 +615,16 @@ function processChunkSync(self, chunk, flushFlag) {
   const chunkSize = self._chunkSize;
 
   let error;
+<<<<<<< HEAD
   self.on('error', function onError(er) {
+=======
+  self.on("error", function onError(er) {
+>>>>>>> refs/remotes/origin/master
     error = er;
   });
 
   while (true) {
+<<<<<<< HEAD
     handle.writeSync(flushFlag,
                      chunk, // in
                      inOff, // in_off
@@ -409,11 +636,28 @@ function processChunkSync(self, chunk, flushFlag) {
       throw error;
     else if (self[kError])
       throw self[kError];
+=======
+    handle.writeSync(
+      flushFlag,
+      chunk, // in
+      inOff, // in_off
+      availInBefore, // in_len
+      buffer, // out
+      offset, // out_off
+      availOutBefore
+    ); // out_len
+    if (error) throw error;
+    else if (self[kError]) throw self[kError];
+>>>>>>> refs/remotes/origin/master
 
     availOutAfter = state[0];
     availInAfter = state[1];
 
+<<<<<<< HEAD
     const inDelta = (availInBefore - availInAfter);
+=======
+    const inDelta = availInBefore - availInAfter;
+>>>>>>> refs/remotes/origin/master
     inputRead += inDelta;
 
     const have = availOutBefore - availOutAfter;
@@ -427,9 +671,14 @@ function processChunkSync(self, chunk, flushFlag) {
         _close(self);
         throw new ERR_BUFFER_TOO_LARGE(self._maxOutputLength);
       }
+<<<<<<< HEAD
 
     } else {
       assert(have === 0, 'have should not go down');
+=======
+    } else {
+      assert(have === 0, "have should not go down");
+>>>>>>> refs/remotes/origin/master
     }
 
     // Exhausted the output buffer, or used all the input create a new one.
@@ -454,10 +703,16 @@ function processChunkSync(self, chunk, flushFlag) {
   self.bytesWritten = inputRead;
   _close(self);
 
+<<<<<<< HEAD
   if (nread === 0)
     return Buffer.alloc(0);
 
   return (buffers.length === 1 ? buffers[0] : Buffer.concat(buffers, nread));
+=======
+  if (nread === 0) return Buffer.alloc(0);
+
+  return buffers.length === 1 ? buffers[0] : Buffer.concat(buffers, nread);
+>>>>>>> refs/remotes/origin/master
 }
 
 function processChunk(self, chunk, flushFlag, cb) {
@@ -471,6 +726,7 @@ function processChunk(self, chunk, flushFlag, cb) {
   handle.inOff = 0;
   handle.flushFlag = flushFlag;
 
+<<<<<<< HEAD
   handle.write(flushFlag,
                chunk, // in
                0, // in_off
@@ -478,6 +734,17 @@ function processChunk(self, chunk, flushFlag, cb) {
                self._outBuffer, // out
                self._outOffset, // out_off
                handle.availOutBefore); // out_len
+=======
+  handle.write(
+    flushFlag,
+    chunk, // in
+    0, // in_off
+    handle.availInBefore, // in_len
+    self._outBuffer, // out
+    self._outOffset, // out_off
+    handle.availOutBefore
+  ); // out_len
+>>>>>>> refs/remotes/origin/master
 }
 
 function processCallback() {
@@ -507,7 +774,11 @@ function processCallback() {
     self._outOffset += have;
     streamBufferIsFull = !self.push(out);
   } else {
+<<<<<<< HEAD
     assert(have === 0, 'have should not go down');
+=======
+    assert(have === 0, "have should not go down");
+>>>>>>> refs/remotes/origin/master
   }
 
   if (self.destroyed) {
@@ -530,6 +801,7 @@ function processCallback() {
     handle.inOff += inDelta;
     handle.availInBefore = availInAfter;
 
+<<<<<<< HEAD
 
     if (!streamBufferIsFull) {
       this.write(handle.flushFlag,
@@ -539,10 +811,23 @@ function processCallback() {
                  self._outBuffer, // out
                  self._outOffset, // out_off
                  self._chunkSize); // out_len
+=======
+    if (!streamBufferIsFull) {
+      this.write(
+        handle.flushFlag,
+        this.buffer, // in
+        handle.inOff, // in_off
+        handle.availInBefore, // in_len
+        self._outBuffer, // out
+        self._outOffset, // out_off
+        self._chunkSize
+      ); // out_len
+>>>>>>> refs/remotes/origin/master
     } else {
       const oldRead = self._read;
       self._read = (n) => {
         self._read = oldRead;
+<<<<<<< HEAD
         this.write(handle.flushFlag,
                    this.buffer, // in
                    handle.inOff, // in_off
@@ -550,6 +835,17 @@ function processCallback() {
                    self._outBuffer, // out
                    self._outOffset, // out_off
                    self._chunkSize); // out_len
+=======
+        this.write(
+          handle.flushFlag,
+          this.buffer, // in
+          handle.inOff, // in_off
+          handle.availInBefore, // in_len
+          self._outBuffer, // out
+          self._outOffset, // out_off
+          self._chunkSize
+        ); // out_len
+>>>>>>> refs/remotes/origin/master
         self._read(n);
       };
     }
@@ -607,15 +903,23 @@ function Zlib(opts, mode) {
     // windowBits is special. On the compression side, 0 is an invalid value.
     // But on the decompression side, a value of 0 for windowBits tells zlib
     // to use the window size in the zlib header of the compressed stream.
+<<<<<<< HEAD
     if ((opts.windowBits == null || opts.windowBits === 0) &&
         (mode === INFLATE ||
          mode === GUNZIP ||
          mode === UNZIP)) {
+=======
+    if (
+      (opts.windowBits == null || opts.windowBits === 0) &&
+      (mode === INFLATE || mode === GUNZIP || mode === UNZIP)
+    ) {
+>>>>>>> refs/remotes/origin/master
       windowBits = 0;
     } else {
       // `{ windowBits: 8 }` is valid for deflate but not gzip.
       const min = Z_MIN_WINDOWBITS + (mode === GZIP ? 1 : 0);
       windowBits = checkRangesOrGetDefault(
+<<<<<<< HEAD
         opts.windowBits, 'options.windowBits',
         min, Z_MAX_WINDOWBITS, Z_DEFAULT_WINDOWBITS);
     }
@@ -631,6 +935,39 @@ function Zlib(opts, mode) {
     strategy = checkRangesOrGetDefault(
       opts.strategy, 'options.strategy',
       Z_DEFAULT_STRATEGY, Z_FIXED, Z_DEFAULT_STRATEGY);
+=======
+        opts.windowBits,
+        "options.windowBits",
+        min,
+        Z_MAX_WINDOWBITS,
+        Z_DEFAULT_WINDOWBITS
+      );
+    }
+
+    level = checkRangesOrGetDefault(
+      opts.level,
+      "options.level",
+      Z_MIN_LEVEL,
+      Z_MAX_LEVEL,
+      Z_DEFAULT_COMPRESSION
+    );
+
+    memLevel = checkRangesOrGetDefault(
+      opts.memLevel,
+      "options.memLevel",
+      Z_MIN_MEMLEVEL,
+      Z_MAX_MEMLEVEL,
+      Z_DEFAULT_MEMLEVEL
+    );
+
+    strategy = checkRangesOrGetDefault(
+      opts.strategy,
+      "options.strategy",
+      Z_DEFAULT_STRATEGY,
+      Z_FIXED,
+      Z_DEFAULT_STRATEGY
+    );
+>>>>>>> refs/remotes/origin/master
 
     dictionary = opts.dictionary;
     if (dictionary !== undefined && !isArrayBufferView(dictionary)) {
@@ -638,9 +975,15 @@ function Zlib(opts, mode) {
         dictionary = Buffer.from(dictionary);
       } else {
         throw new ERR_INVALID_ARG_TYPE(
+<<<<<<< HEAD
           'options.dictionary',
           ['Buffer', 'TypedArray', 'DataView', 'ArrayBuffer'],
           dictionary,
+=======
+          "options.dictionary",
+          ["Buffer", "TypedArray", "DataView", "ArrayBuffer"],
+          dictionary
+>>>>>>> refs/remotes/origin/master
         );
       }
     }
@@ -651,6 +994,7 @@ function Zlib(opts, mode) {
   // to come up with a good solution that doesn't break our internal API,
   // and with it all supported npm versions at the time of writing.
   this._writeState = new Uint32Array(2);
+<<<<<<< HEAD
   handle.init(windowBits,
               level,
               memLevel,
@@ -658,6 +1002,17 @@ function Zlib(opts, mode) {
               this._writeState,
               processCallback,
               dictionary);
+=======
+  handle.init(
+    windowBits,
+    level,
+    memLevel,
+    strategy,
+    this._writeState,
+    processCallback,
+    dictionary
+  );
+>>>>>>> refs/remotes/origin/master
 
   ReflectApply(ZlibBase, this, [opts, mode, handle, zlibDefaultOpts]);
 
@@ -673,7 +1028,11 @@ ObjectSetPrototypeOf(Zlib, ZlibBase);
 // `params()` function should not happen while a write is currently in progress
 // on the threadpool.
 function paramsAfterFlushCallback(level, strategy, callback) {
+<<<<<<< HEAD
   assert(this._handle, 'zlib binding closed');
+=======
+  assert(this._handle, "zlib binding closed");
+>>>>>>> refs/remotes/origin/master
   this._handle.params(level, strategy);
   if (!this.destroyed) {
     this._level = level;
@@ -683,13 +1042,22 @@ function paramsAfterFlushCallback(level, strategy, callback) {
 }
 
 Zlib.prototype.params = function params(level, strategy, callback) {
+<<<<<<< HEAD
   checkRangesOrGetDefault(level, 'level', Z_MIN_LEVEL, Z_MAX_LEVEL);
   checkRangesOrGetDefault(strategy, 'strategy', Z_DEFAULT_STRATEGY, Z_FIXED);
+=======
+  checkRangesOrGetDefault(level, "level", Z_MIN_LEVEL, Z_MAX_LEVEL);
+  checkRangesOrGetDefault(strategy, "strategy", Z_DEFAULT_STRATEGY, Z_FIXED);
+>>>>>>> refs/remotes/origin/master
 
   if (this._level !== level || this._strategy !== strategy) {
     this.flush(
       Z_SYNC_FLUSH,
+<<<<<<< HEAD
       paramsAfterFlushCallback.bind(this, level, strategy, callback),
+=======
+      paramsAfterFlushCallback.bind(this, level, strategy, callback)
+>>>>>>> refs/remotes/origin/master
     );
   } else {
     process.nextTick(callback);
@@ -700,7 +1068,11 @@ Zlib.prototype.params = function params(level, strategy, callback) {
 // minimal 2-byte header
 function Deflate(opts) {
   if (!(this instanceof Deflate)) {
+<<<<<<< HEAD
     return deprecateInstantiation(Deflate, 'DEP0184', opts);
+=======
+    return deprecateInstantiation(Deflate, "DEP0184", opts);
+>>>>>>> refs/remotes/origin/master
   }
   ReflectApply(Zlib, this, [opts, DEFLATE]);
 }
@@ -709,7 +1081,11 @@ ObjectSetPrototypeOf(Deflate, Zlib);
 
 function Inflate(opts) {
   if (!(this instanceof Inflate)) {
+<<<<<<< HEAD
     return deprecateInstantiation(Inflate, 'DEP0184', opts);
+=======
+    return deprecateInstantiation(Inflate, "DEP0184", opts);
+>>>>>>> refs/remotes/origin/master
   }
   ReflectApply(Zlib, this, [opts, INFLATE]);
 }
@@ -718,7 +1094,11 @@ ObjectSetPrototypeOf(Inflate, Zlib);
 
 function Gzip(opts) {
   if (!(this instanceof Gzip)) {
+<<<<<<< HEAD
     return deprecateInstantiation(Gzip, 'DEP0184', opts);
+=======
+    return deprecateInstantiation(Gzip, "DEP0184", opts);
+>>>>>>> refs/remotes/origin/master
   }
   ReflectApply(Zlib, this, [opts, GZIP]);
 }
@@ -727,7 +1107,11 @@ ObjectSetPrototypeOf(Gzip, Zlib);
 
 function Gunzip(opts) {
   if (!(this instanceof Gunzip)) {
+<<<<<<< HEAD
     return deprecateInstantiation(Gunzip, 'DEP0184', opts);
+=======
+    return deprecateInstantiation(Gunzip, "DEP0184", opts);
+>>>>>>> refs/remotes/origin/master
   }
   ReflectApply(Zlib, this, [opts, GUNZIP]);
 }
@@ -737,7 +1121,11 @@ ObjectSetPrototypeOf(Gunzip, Zlib);
 function DeflateRaw(opts) {
   if (opts && opts.windowBits === 8) opts.windowBits = 9;
   if (!(this instanceof DeflateRaw)) {
+<<<<<<< HEAD
     return deprecateInstantiation(DeflateRaw, 'DEP0184', opts);
+=======
+    return deprecateInstantiation(DeflateRaw, "DEP0184", opts);
+>>>>>>> refs/remotes/origin/master
   }
   ReflectApply(Zlib, this, [opts, DEFLATERAW]);
 }
@@ -746,7 +1134,11 @@ ObjectSetPrototypeOf(DeflateRaw, Zlib);
 
 function InflateRaw(opts) {
   if (!(this instanceof InflateRaw)) {
+<<<<<<< HEAD
     return deprecateInstantiation(InflateRaw, 'DEP0184', opts);
+=======
+    return deprecateInstantiation(InflateRaw, "DEP0184", opts);
+>>>>>>> refs/remotes/origin/master
   }
   ReflectApply(Zlib, this, [opts, INFLATERAW]);
 }
@@ -755,7 +1147,11 @@ ObjectSetPrototypeOf(InflateRaw, Zlib);
 
 function Unzip(opts) {
   if (!(this instanceof Unzip)) {
+<<<<<<< HEAD
     return deprecateInstantiation(Unzip, 'DEP0184', opts);
+=======
+    return deprecateInstantiation(Unzip, "DEP0184", opts);
+>>>>>>> refs/remotes/origin/master
   }
   ReflectApply(Zlib, this, [opts, UNZIP]);
 }
@@ -769,7 +1165,11 @@ function createConvenienceMethod(ctor, sync) {
     };
   }
   return function asyncBufferWrapper(buffer, opts, callback) {
+<<<<<<< HEAD
     if (typeof opts === 'function') {
+=======
+    if (typeof opts === "function") {
+>>>>>>> refs/remotes/origin/master
       callback = opts;
       opts = {};
     }
@@ -778,8 +1178,14 @@ function createConvenienceMethod(ctor, sync) {
 }
 
 const kMaxBrotliParam = MathMax(
+<<<<<<< HEAD
   ...ObjectEntries(constants)
     .map(({ 0: key, 1: value }) => (key.startsWith('BROTLI_PARAM_') ? value : 0)),
+=======
+  ...ObjectEntries(constants).map(({ 0: key, 1: value }) =>
+    key.startsWith("BROTLI_PARAM_") ? value : 0
+  )
+>>>>>>> refs/remotes/origin/master
 );
 const brotliInitParamsArray = new Uint32Array(kMaxBrotliParam + 1);
 
@@ -795,22 +1201,47 @@ function Brotli(opts, mode) {
   if (opts?.params) {
     ObjectKeys(opts.params).forEach((origKey) => {
       const key = +origKey;
+<<<<<<< HEAD
       if (NumberIsNaN(key) || key < 0 || key > kMaxBrotliParam ||
           (brotliInitParamsArray[key] | 0) !== -1) {
+=======
+      if (
+        NumberIsNaN(key) ||
+        key < 0 ||
+        key > kMaxBrotliParam ||
+        (brotliInitParamsArray[key] | 0) !== -1
+      ) {
+>>>>>>> refs/remotes/origin/master
         throw new ERR_BROTLI_INVALID_PARAM(origKey);
       }
 
       const value = opts.params[origKey];
+<<<<<<< HEAD
       if (typeof value !== 'number' && typeof value !== 'boolean') {
         throw new ERR_INVALID_ARG_TYPE('options.params[key]',
                                        'number', opts.params[origKey]);
+=======
+      if (typeof value !== "number" && typeof value !== "boolean") {
+        throw new ERR_INVALID_ARG_TYPE(
+          "options.params[key]",
+          "number",
+          opts.params[origKey]
+        );
+>>>>>>> refs/remotes/origin/master
       }
       brotliInitParamsArray[key] = value;
     });
   }
 
+<<<<<<< HEAD
   const handle = mode === BROTLI_DECODE ?
     new binding.BrotliDecoder(mode) : new binding.BrotliEncoder(mode);
+=======
+  const handle =
+    mode === BROTLI_DECODE
+      ? new binding.BrotliDecoder(mode)
+      : new binding.BrotliEncoder(mode);
+>>>>>>> refs/remotes/origin/master
 
   this._writeState = new Uint32Array(2);
   handle.init(brotliInitParamsArray, this._writeState, processCallback);
@@ -822,7 +1253,11 @@ ObjectSetPrototypeOf(Brotli, Zlib);
 
 function BrotliCompress(opts) {
   if (!(this instanceof BrotliCompress)) {
+<<<<<<< HEAD
     return deprecateInstantiation(BrotliCompress, 'DEP0184', opts);
+=======
+    return deprecateInstantiation(BrotliCompress, "DEP0184", opts);
+>>>>>>> refs/remotes/origin/master
   }
   ReflectApply(Brotli, this, [opts, BROTLI_ENCODE]);
 }
@@ -831,14 +1266,21 @@ ObjectSetPrototypeOf(BrotliCompress, Brotli);
 
 function BrotliDecompress(opts) {
   if (!(this instanceof BrotliDecompress)) {
+<<<<<<< HEAD
     return deprecateInstantiation(BrotliDecompress, 'DEP0184', opts);
+=======
+    return deprecateInstantiation(BrotliDecompress, "DEP0184", opts);
+>>>>>>> refs/remotes/origin/master
   }
   ReflectApply(Brotli, this, [opts, BROTLI_DECODE]);
 }
 ObjectSetPrototypeOf(BrotliDecompress.prototype, Brotli.prototype);
 ObjectSetPrototypeOf(BrotliDecompress, Brotli);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/master
 const zstdDefaultOpts = {
   flush: ZSTD_e_continue,
   finishFlush: ZSTD_e_end,
@@ -852,22 +1294,47 @@ class Zstd extends ZlibBase {
     if (opts?.params) {
       ObjectKeys(opts.params).forEach((origKey) => {
         const key = +origKey;
+<<<<<<< HEAD
         if (NumberIsNaN(key) || key < 0 || key > maxParam ||
             (initParamsArray[key] | 0) !== -1) {
+=======
+        if (
+          NumberIsNaN(key) ||
+          key < 0 ||
+          key > maxParam ||
+          (initParamsArray[key] | 0) !== -1
+        ) {
+>>>>>>> refs/remotes/origin/master
           throw new ERR_ZSTD_INVALID_PARAM(origKey);
         }
 
         const value = opts.params[origKey];
+<<<<<<< HEAD
         if (typeof value !== 'number' && typeof value !== 'boolean') {
           throw new ERR_INVALID_ARG_TYPE('options.params[key]',
                                          'number', opts.params[origKey]);
+=======
+        if (typeof value !== "number" && typeof value !== "boolean") {
+          throw new ERR_INVALID_ARG_TYPE(
+            "options.params[key]",
+            "number",
+            opts.params[origKey]
+          );
+>>>>>>> refs/remotes/origin/master
         }
         initParamsArray[key] = value;
       });
     }
 
+<<<<<<< HEAD
     const handle = mode === ZSTD_COMPRESS ?
       new binding.ZstdCompress() : new binding.ZstdDecompress();
+=======
+    const handle =
+      mode === ZSTD_COMPRESS
+        ? new binding.ZstdCompress()
+        : new binding.ZstdDecompress();
+>>>>>>> refs/remotes/origin/master
 
     const pledgedSrcSize = opts?.pledgedSrcSize ?? undefined;
 
@@ -878,7 +1345,13 @@ class Zstd extends ZlibBase {
       pledgedSrcSize,
       writeState,
       processCallback,
+<<<<<<< HEAD
       opts?.dictionary && isArrayBufferView(opts.dictionary) ? opts.dictionary : undefined,
+=======
+      opts?.dictionary && isArrayBufferView(opts.dictionary)
+        ? opts.dictionary
+        : undefined
+>>>>>>> refs/remotes/origin/master
     );
 
     super(opts, mode, handle, zstdDefaultOpts);
@@ -886,11 +1359,19 @@ class Zstd extends ZlibBase {
   }
 }
 
+<<<<<<< HEAD
 const kMaxZstdCParam = MathMax(...ObjectKeys(constants).map(
   (key) => (key.startsWith('ZSTD_c_') ?
     constants[key] :
     0),
 ));
+=======
+const kMaxZstdCParam = MathMax(
+  ...ObjectKeys(constants).map((key) =>
+    key.startsWith("ZSTD_c_") ? constants[key] : 0
+  )
+);
+>>>>>>> refs/remotes/origin/master
 
 const zstdInitCParamsArray = new Uint32Array(kMaxZstdCParam + 1);
 
@@ -900,11 +1381,19 @@ class ZstdCompress extends Zstd {
   }
 }
 
+<<<<<<< HEAD
 const kMaxZstdDParam = MathMax(...ObjectKeys(constants).map(
   (key) => (key.startsWith('ZSTD_d_') ?
     constants[key] :
     0),
 ));
+=======
+const kMaxZstdDParam = MathMax(
+  ...ObjectKeys(constants).map((key) =>
+    key.startsWith("ZSTD_d_") ? constants[key] : 0
+  )
+);
+>>>>>>> refs/remotes/origin/master
 
 const zstdInitDParamsArray = new Uint32Array(kMaxZstdDParam + 1);
 
@@ -919,26 +1408,52 @@ function createProperty(ctor) {
     __proto__: null,
     configurable: true,
     enumerable: true,
+<<<<<<< HEAD
     value: function(options) {
+=======
+    value: function (options) {
+>>>>>>> refs/remotes/origin/master
       return new ctor(options);
     },
   };
 }
 
 function crc32(data, value = 0) {
+<<<<<<< HEAD
   if (typeof data !== 'string' && !isArrayBufferView(data)) {
     throw new ERR_INVALID_ARG_TYPE('data', ['Buffer', 'TypedArray', 'DataView', 'string'], data);
   }
   validateUint32(value, 'value');
+=======
+  if (typeof data !== "string" && !isArrayBufferView(data)) {
+    throw new ERR_INVALID_ARG_TYPE(
+      "data",
+      ["Buffer", "TypedArray", "DataView", "string"],
+      data
+    );
+  }
+  validateUint32(value, "value");
+>>>>>>> refs/remotes/origin/master
   return crc32Native(data, value);
 }
 
 // Legacy alias on the C++ wrapper object. This is not public API, so we may
 // want to runtime-deprecate it at some point. There's no hurry, though.
+<<<<<<< HEAD
 ObjectDefineProperty(binding.Zlib.prototype, 'jsref', {
   __proto__: null,
   get() { return this[owner_symbol]; },
   set(v) { return this[owner_symbol] = v; },
+=======
+ObjectDefineProperty(binding.Zlib.prototype, "jsref", {
+  __proto__: null,
+  get() {
+    return this[owner_symbol];
+  },
+  set(v) {
+    return (this[owner_symbol] = v);
+  },
+>>>>>>> refs/remotes/origin/master
 });
 
 module.exports = {
@@ -1010,11 +1525,19 @@ ObjectDefineProperties(module.exports, {
 // These should be considered deprecated
 // expose all the zlib constants
 for (const { 0: key, 1: value } of ObjectEntries(constants)) {
+<<<<<<< HEAD
   if (key.startsWith('BROTLI')) continue;
+=======
+  if (key.startsWith("BROTLI")) continue;
+>>>>>>> refs/remotes/origin/master
   ObjectDefineProperty(module.exports, key, {
     __proto__: null,
     enumerable: false,
     value,
     writable: false,
   });
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> refs/remotes/origin/master

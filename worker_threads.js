@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 'use strict';
+=======
+"use strict";
+>>>>>>> refs/remotes/origin/master
 
 const {
   isInternalThread,
@@ -10,7 +14,11 @@ const {
   threadId,
   threadName,
   Worker,
+<<<<<<< HEAD
 } = require('internal/worker');
+=======
+} = require("internal/worker");
+>>>>>>> refs/remotes/origin/master
 
 const {
   MessagePort,
@@ -19,18 +27,30 @@ const {
   moveMessagePortToContext,
   receiveMessageOnPort,
   BroadcastChannel,
+<<<<<<< HEAD
 } = require('internal/worker/io');
 
 const {
   postMessageToThread,
 } = require('internal/worker/messaging');
+=======
+} = require("internal/worker/io");
+
+const { postMessageToThread } = require("internal/worker/messaging");
+>>>>>>> refs/remotes/origin/master
 
 const {
   markAsUntransferable,
   isMarkedAsUntransferable,
+<<<<<<< HEAD
 } = require('internal/buffer');
 
 const { locks } = require('internal/locks');
+=======
+} = require("internal/buffer");
+
+const { locks } = require("internal/locks");
+>>>>>>> refs/remotes/origin/master
 
 module.exports = {
   isInternalThread,
@@ -54,4 +74,8 @@ module.exports = {
   setEnvironmentData,
   getEnvironmentData,
   locks,
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> refs/remotes/origin/master
