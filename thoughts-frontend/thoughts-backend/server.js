@@ -2,17 +2,17 @@ import express from "express";
 import cors from "cors";
 import bodyParser from 'body-parser';
 
-import data from "../../../data.json";
+import data from "../../data.json";
 import listEndpoints from 'express-list-endpoints'
 
 import mongoose from "mongoose"
 
-import thoughtsData from "/data/thoughts.json";
+// import thoughtsData from "/data/thoughts.json";
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 
-import userRoutes from "./userRoutes.js";
-import thoughtRoutes from "./thoughtRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import thoughtRoutes from "./routes/thoughtRoutes.js";
 
 // Ensure the MONGO_URL environment variable is set in your environment before running the server
 // Removed duplicate and incorrect thoughtSchema definition
@@ -85,14 +85,14 @@ const thoughtSchema = new mongoose.Schema({
   scientificName: String,
 }); // Added missing closing brace
 
-if (process.env.RESET_DB) {
-  const seedDatabase = async () => {
-    await Thought.deleteMany({});
-  thoughtData.forEach(thought => {
-    new Thought(thought).save();
-  });
-};
-seedDatabase();
+// if (process.env.RESET_DB) {
+//   const seedDatabase = async () => {
+//     await Thought.deleteMany({});
+//   thoughtData.forEach(thought => {
+//     new Thought(thought).save();
+//   });
+// };
+// seedDatabase();
 const thoughtSchema = new mongoose.Schema({
   id: Number,
   name: String,
