@@ -9,20 +9,20 @@
     pkgs.gcc,
     pkgs.make,
     pkgs.pkg-config,
-    # pkgs.sudo
-    # pkgs-sudo-shim
-    # pkgs.sudo-rs
-    # pkgs.go
-    # pkgs.python311
-    # pkgs.python311Packages.pip
-    # pkgs.nodejs_20
-    # pkgs.nodePackages.nodemon
-    # pkgs.python312Packages.pip
-    # pkgs.openssh
-    # pkgs.eval
-    # pkgs.busybox
-    # pkgs.openssh_gssapi
-    # pkgs.openssh_hpn
+    pkgs.doas-sudo-shim
+    pkgs.sudo
+    pkgs.sudo-rs
+    pkgs.go
+    pkgs.python311
+    pkgs.python311Packages.pip
+    pkgs.nodejs_20
+    pkgs.nodePackages.nodemon
+    pkgs.python312Packages.pip
+    pkgs.openssh
+    pkgs.eval
+    pkgs.busybox
+    pkgs.openssh_gssapi
+    pkgs.openssh_hpn
   ];
 
   # Sets environment variables in the workspace
