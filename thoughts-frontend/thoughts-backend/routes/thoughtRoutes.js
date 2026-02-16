@@ -148,7 +148,12 @@ router.patch("/:id", async (req, res) => {
     }
     res.status(201).json(editThought)
   } catch (err) {
-    res.status(500).json(err)
+    console.error(err)
+    res.status(500).json({
+      success: false,
+      response: null,
+      message: "Couldn't update thought"
+    })
   }
 })
 
