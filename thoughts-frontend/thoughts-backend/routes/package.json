@@ -29,7 +29,7 @@
     "python": "^0.0.4",
     "react": "^19.1.0",
     "render": "^0.1.4",
-    "vite": "^6.3.5",
+    "vite": "^6.4.1",
     "zustand": "^5.0.5"
   },
 "devDependencies": {
